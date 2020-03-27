@@ -23,10 +23,6 @@
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
         <TextBox x:Name="loginTextBox" materialDesign:HintAssist.Hint="Email" Height="26" TextWrapping="Wrap" Grid.Row="0" Grid.ColumnSpan="2"/>
         <PasswordBox x:Name="passwordBox" materialDesign:HintAssist.Hint="Password"  Height="26" Grid.Row="1" Grid.ColumnSpan="2"/>
         <Button x:Name="signIn" Content="Sign In" HorizontalAlignment="Left" VerticalAlignment="Center" Width="82" Click="OnSignIn" Grid.Row="2" Grid.Column="0"/>

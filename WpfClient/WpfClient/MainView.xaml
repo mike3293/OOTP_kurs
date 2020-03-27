@@ -7,14 +7,18 @@
       xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="MainView">
-    <Grid Background="Lavender">
+      Title="MainView"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      Background="{DynamicResource MaterialDesignPaper}"
+      FontFamily="{DynamicResource MaterialDesignFont}"
+      >
+    <Grid>
         <ListView Name="InternsList" SelectionChanged="InternsList_SelectionChanged">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}">Name</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding LastName}" Width="100">Last name</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Email}">Email</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}" Width="200">First name</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding LastName}" Width="200">Last name</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Email}" Width="200">Email</GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
