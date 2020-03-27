@@ -26,17 +26,12 @@ namespace WpfClient
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void OnSignIn(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("MainView.xaml", UriKind.Relative));
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void Button1_Click(object sender, RoutedEventArgs e)
+        private void OnSignUp(object sender, RoutedEventArgs e)
         {
             Person person = new Person
             {

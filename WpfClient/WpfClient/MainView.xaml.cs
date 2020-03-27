@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Windows.Controls;
 using WpfClient.BackEnd;
+using MaterialDesignThemes;
 
 namespace WpfClient
 {
@@ -12,7 +13,6 @@ namespace WpfClient
         public MainView()
         {
             InitializeComponent();
-
 
             using (BackEndContext db = new BackEndContext())
             {
