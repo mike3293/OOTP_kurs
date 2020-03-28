@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using WpfClient.BackEnd;
+using WpfClient.BackEnd.DataBase;
 
 namespace WpfClient
 {
@@ -36,15 +26,24 @@ namespace WpfClient
             Person person = new Person
             {
                 Id = Guid.NewGuid(),
-                Email="intern@intern.ru",
+                Email = "intern@intern.ru",
                 FirstName = "First",
-                LastName="Last",
-                IsManager=false,
+                LastName = "Last",
+                Role = Role.Intern,
             };
 
             BackEndContext context = new BackEndContext();
             context.People.Add(person);
             context.SaveChanges();
+
+            //Internship i = new Internship
+            //{
+            //    Id = Guid.NewGuid(),
+            //};
+
+            //BackEndContext context = new BackEndContext();
+            //context.Internships.Add(i);
+            //context.SaveChanges();
         }
     }
 }

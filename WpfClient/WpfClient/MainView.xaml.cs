@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
-using WpfClient.BackEnd;
+using WpfClient.BackEnd.DataBase;
 
 namespace WpfClient
 {
@@ -16,7 +16,7 @@ namespace WpfClient
 
             using (BackEndContext db = new BackEndContext())
             {
-                InternsList.ItemsSource = db.People.Where(p => !p.IsManager).ToList();
+                InternsList.ItemsSource = db.People.Where(p => p.Role == Role.Intern).ToList();
             }
         }
 

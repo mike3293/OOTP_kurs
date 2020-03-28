@@ -91,6 +91,7 @@
     <Compile Include="Authorization.xaml.cs">
       <DependentUpon>Authorization.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BackEnd\DataBase\Assessment.cs" />
     <Compile Include="BackEnd\DataBase\BackEndContext.cs" />
     <Compile Include="BackEnd\DataBase\Internship.cs" />
     <Compile Include="BackEnd\DataBase\InternshipGoal.cs" />

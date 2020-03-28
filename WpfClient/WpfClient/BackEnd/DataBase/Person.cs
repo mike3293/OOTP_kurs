@@ -1,7 +1,9 @@
-namespace WpfClient.BackEnd
+namespace WpfClient.BackEnd.DataBase
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+
+    public enum Role { Manager, Mentor, Intern }
 
     public partial class Person
     {
@@ -20,6 +22,6 @@ namespace WpfClient.BackEnd
         public string LastName { get; set; }
 
         [Required]
-        public bool IsManager { get; set; }
+        public Role Role { get; set; }
     }
 }

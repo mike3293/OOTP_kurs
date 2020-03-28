@@ -1,4 +1,4 @@
-namespace WpfClient.BackEnd
+namespace WpfClient.BackEnd.DataBase
 {
     using System;
     using System.Collections.Generic;
@@ -9,9 +9,6 @@ namespace WpfClient.BackEnd
     public partial class InternshipGoal
     {
         public Guid Id { get; set; }
-
-        [Required]
-        public Internship Internship { get; set; }
 
         [Required]
         [Column(TypeName = "date")]
