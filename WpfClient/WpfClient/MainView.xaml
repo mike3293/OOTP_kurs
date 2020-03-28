@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfClient"
       xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainView"
@@ -13,14 +14,24 @@
       FontFamily="{DynamicResource MaterialDesignFont}"
       >
     <Grid>
-        <ListView Name="InternsList" SelectionChanged="InternsList_SelectionChanged">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}" Width="200">First name</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding LastName}" Width="200">Last name</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Email}" Width="200">Email</GridViewColumn>
-                </GridView>
-            </ListView.View>
+        <ListView Name="InternsList">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
+                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="ListViewItem_PreviewMouseLeftButtonUp" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text="{Binding FirstName}"/>
+                        <TextBlock Text=", "/>
+                        <TextBlock Text="{Binding LastName}"/>
+                        <TextBlock Text=", "/>
+                        <TextBlock Text="{Binding Email}"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </Page>
