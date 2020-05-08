@@ -2,11 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WpfClient.BackEnd.DataBase
+namespace WpfClient.DataBase.Models
 {
-    internal class Assessment
+    public class Assessment
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public Internship Internship { get; set; }

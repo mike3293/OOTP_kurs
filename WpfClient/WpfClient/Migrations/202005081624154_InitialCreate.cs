@@ -11,11 +11,11 @@ namespace WpfClient.Migrations
                 "dbo.Assessments",
                 c => new
                     {
-                        Id = c.Guid(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
                         Date = c.DateTime(nullable: false, storeType: "date"),
                         Location = c.String(),
                         Topic = c.String(),
-                        Internship_Id = c.Guid(nullable: false),
+                        Internship_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Internships", t => t.Internship_Id, cascadeDelete: true)
@@ -25,11 +25,11 @@ namespace WpfClient.Migrations
                 "dbo.Internships",
                 c => new
                     {
-                        Id = c.Guid(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
                         StartDate = c.DateTime(nullable: false, storeType: "date"),
                         EndDate = c.DateTime(nullable: false, storeType: "date"),
-                        Intern_Id = c.Guid(nullable: false),
-                        Manager_Id = c.Guid(),
+                        Intern_Id = c.Int(nullable: false),
+                        Manager_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.People", t => t.Intern_Id, cascadeDelete: true)
@@ -41,11 +41,10 @@ namespace WpfClient.Migrations
                 "dbo.People",
                 c => new
                     {
-                        Id = c.Guid(nullable: false),
-                        Email = c.String(nullable: false, maxLength: 30),
-                        FirstName = c.String(nullable: false, maxLength: 30),
-                        LastName = c.String(nullable: false, maxLength: 30),
-                        Role = c.Int(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
+                        FirstName = c.String(nullable: false),
+                        LastName = c.String(nullable: false),
+                        Image = c.Binary(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -53,28 +52,45 @@ namespace WpfClient.Migrations
                 "dbo.InternshipGoals",
                 c => new
                     {
-                        Id = c.Guid(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
                         DeadlineDate = c.DateTime(nullable: false, storeType: "date"),
-                        Name = c.String(nullable: false, maxLength: 20),
+                        Name = c.String(nullable: false),
                         IsCompleted = c.Boolean(),
-                        Internship_Id = c.Guid(),
+                        Internship_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Internships", t => t.Internship_Id)
                 .Index(t => t.Internship_Id);
             
+            CreateTable(
+                "dbo.Users",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Email = c.String(nullable: false),
+                        HashedPassword = c.String(nullable: false),
+                        Role = c.Int(nullable: false),
+                        UserDetails_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.People", t => t.UserDetails_Id, cascadeDelete: true)
+                .Index(t => t.UserDetails_Id);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.Users", "UserDetails_Id", "dbo.People");
             DropForeignKey("dbo.Assessments", "Internship_Id", "dbo.Internships");
             DropForeignKey("dbo.Internships", "Manager_Id", "dbo.People");
             DropForeignKey("dbo.InternshipGoals", "Internship_Id", "dbo.Internships");
             DropForeignKey("dbo.Internships", "Intern_Id", "dbo.People");
+            DropIndex("dbo.Users", new[] { "UserDetails_Id" });
             DropIndex("dbo.InternshipGoals", new[] { "Internship_Id" });
             DropIndex("dbo.Internships", new[] { "Manager_Id" });
             DropIndex("dbo.Internships", new[] { "Intern_Id" });
             DropIndex("dbo.Assessments", new[] { "Internship_Id" });
+            DropTable("dbo.Users");
             DropTable("dbo.InternshipGoals");
             DropTable("dbo.People");
             DropTable("dbo.Internships");

@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
-using WpfClient.BackEnd.DataBase;
+using WpfClient.DataBase;
+using WpfClient.Views;
 
 namespace WpfClient
 {
@@ -14,10 +15,11 @@ namespace WpfClient
         {
             InitializeComponent();
 
-            using (BackEndContext db = new BackEndContext())
-            {
-                InternsList.ItemsSource = db.People.Where(p => p.Role == Role.Intern).ToList();
-            }
+            // TODO
+            //using (DataBaseContext db = new DataBaseContext())
+            //{
+            //    InternsList.ItemsSource = db.People.ToList();
+            //}
         }
 
         private void InternsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -42,8 +44,8 @@ namespace WpfClient
             ListViewItem item = sender as ListViewItem;
             if (item != null && item.IsSelected)
             {
-                MainWindow win2 = new MainWindow();
-                win2.Show();
+                MainWindowView win2 = new MainWindowView();
+                win2.Show(); // TODO
             }
         }
     }

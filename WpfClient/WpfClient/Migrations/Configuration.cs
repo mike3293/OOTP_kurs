@@ -5,15 +5,15 @@ namespace WpfClient.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<WpfClient.BackEnd.DataBase.BackEndContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<WpfClient.DataBase.DataBaseContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "WpfClient.BackEnd.DataBase.BackEndContext";
+            ContextKey = "WpfClient.BackEnd.DataBase.DataBaseContext";
         }
 
-        protected override void Seed(WpfClient.BackEnd.DataBase.BackEndContext context)
+        protected override void Seed(WpfClient.DataBase.DataBaseContext context)
         {
             //  This method will be called after migrating to the latest version.
 
