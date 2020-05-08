@@ -26,10 +26,10 @@ namespace WpfClient
             Person person = new Person
             {
                 Id = Guid.NewGuid(),
-                Email = "intern@intern.ru",
+                Email = "manager@intern.ru",
                 FirstName = "First",
                 LastName = "Last",
-                Role = Role.Intern,
+                Role = Role.Manager,
             };
 
             BackEndContext context = new BackEndContext();
