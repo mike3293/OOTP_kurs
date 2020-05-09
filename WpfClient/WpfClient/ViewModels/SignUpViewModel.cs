@@ -19,7 +19,7 @@ namespace WpfClient.ViewModels
             set
             {
                 UserCredentials.Email = value;
-                OnPropertyChanged("Email");
+                OnPropertyChanged(nameof(Email));
             }
         }
 
@@ -29,7 +29,7 @@ namespace WpfClient.ViewModels
             set
             {
                 UserCredentials.Password = value;
-                OnPropertyChanged("Password");
+                OnPropertyChanged(nameof(Password));
             }
         }
 
@@ -39,7 +39,7 @@ namespace WpfClient.ViewModels
             set
             {
                 UserCredentials.FirstName = value;
-                OnPropertyChanged("FirstName");
+                OnPropertyChanged(nameof(FirstName));
             }
         }
 
@@ -49,7 +49,7 @@ namespace WpfClient.ViewModels
             set
             {
                 UserCredentials.LastName = value;
-                OnPropertyChanged("LastName");
+                OnPropertyChanged(nameof(LastName));
             }
         }
 
@@ -61,7 +61,7 @@ namespace WpfClient.ViewModels
             set
             {
                 _isValid = value;
-                OnPropertyChanged("IsValid");
+                OnPropertyChanged(nameof(IsValid));
             }
         }
 
@@ -72,7 +72,7 @@ namespace WpfClient.ViewModels
             set
             {
                 _errorMessage = value;
-                OnPropertyChanged("ErrorMessage");
+                OnPropertyChanged(nameof(ErrorMessage));
             }
         }
         #endregion
@@ -106,14 +106,13 @@ namespace WpfClient.ViewModels
                     {
                         Email = Email,
                         HashedPassword = PasswordEncoder.GetHash(Password),
-                        Role = Role.Intern,
                         UserDetails = person,
                     };
 
                     bool userCreated = await Task.Run(() => UsersService.AddUserAsync(user));
                     if (userCreated)
                     {
-                        AppNavHelper.NavigationService.Navigate(new AuthorizationView());
+                        AppNavHelper.NavigationService.GoBack();
                         ErrorMessage = null;
                     }
                     else

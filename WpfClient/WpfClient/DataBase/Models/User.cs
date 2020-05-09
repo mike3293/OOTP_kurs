@@ -1,20 +1,15 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using WpfClient.ViewModels;
 
-public enum Role { Manager, Mentor, Intern }
+public enum Role { Manager, Intern }
 
 namespace WpfClient.DataBase.Models
 {
     public class User
     {
-        // TODO
-        //public User(string email, string hashedPassword)
-        //{
-        //    Email = email;
-        //    HashedPassword = hashedPassword;
-        //}
-
         public int Id { get; set; }
 
         [Required]
@@ -24,14 +19,8 @@ namespace WpfClient.DataBase.Models
         public string HashedPassword { get; set; }
 
         [Required]
-        public virtual Person UserDetails { get; set; }
+        public Person UserDetails { get; set; }
 
-        [Required]
-        public Role Role { get; set; }
-
-        public static implicit operator Task(User v)
-        {
-            throw new NotImplementedException();
-        }
+        public Role? Role { get; set; }
     }
 }

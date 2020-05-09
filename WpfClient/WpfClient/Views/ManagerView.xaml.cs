@@ -5,12 +5,12 @@ using WpfClient.ViewModels;
 
 namespace WpfClient.Views
 {
-    public partial class AuthorizationView : Page
+    public partial class ManagerView : Page
     {
         private readonly HashSet<ValidationError> errors = new HashSet<ValidationError>();
-        private AuthorizationViewModel viewModel;
+        private ManagerViewModel viewModel;
 
-        public AuthorizationView()
+        public ManagerView()
         {
             InitializeComponent();
             InitializeValidaton();
@@ -18,7 +18,7 @@ namespace WpfClient.Views
 
         private void InitializeValidaton()
         {
-            viewModel = new AuthorizationViewModel();
+            viewModel = new ManagerViewModel();
             Validation.AddErrorHandler(this, ErrorChangedHandler);
             DataContext = viewModel;
         }
@@ -37,4 +37,5 @@ namespace WpfClient.Views
             viewModel.IsValid = !errors.Any();
         }
     }
+
 }

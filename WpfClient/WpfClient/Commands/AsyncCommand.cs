@@ -38,10 +38,11 @@ namespace WpfClient.Commands
                 var cts = new CancellationTokenSource(timeout);
                 await ExecuteAsync(parameter).WaitAsync(cts.Token);
             }
-            catch
+            catch(Exception e)
             {
                 AppNavHelper.HideProgressBar();
                 MessageBox.Show("Command timeout");
+                MessageBox.Show(e.Message);
             }
         }
 

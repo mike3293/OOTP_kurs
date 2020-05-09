@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 using WpfClient.Auth;
 using WpfClient.Commands;
@@ -12,7 +13,7 @@ namespace WpfClient.ViewModels
     public class AuthorizationViewModel : ViewModelBase
     {
         // TODO: Delete init
-        public UserCredentials UserCredentials = new UserCredentials() { Email = "manager@manager.ru" };
+        public UserCredentials UserCredentials = new UserCredentials() { Email = "manager" };
 
         public string Email
         {
@@ -20,7 +21,7 @@ namespace WpfClient.ViewModels
             set
             {
                 UserCredentials.Email = value;
-                OnPropertyChanged("Email");
+                OnPropertyChanged(nameof(Email));
             }
         }
 
@@ -30,7 +31,7 @@ namespace WpfClient.ViewModels
             set
             {
                 UserCredentials.Password = value;
-                OnPropertyChanged("Password");
+                OnPropertyChanged(nameof(Password));
             }
         }
 
@@ -42,7 +43,7 @@ namespace WpfClient.ViewModels
             set
             {
                 _isValid = value;
-                OnPropertyChanged("IsValid");
+                OnPropertyChanged(nameof(IsValid));
             }
         }
 
@@ -53,7 +54,7 @@ namespace WpfClient.ViewModels
             set
             {
                 _errorMessage = value;
-                OnPropertyChanged("ErrorMessage");
+                OnPropertyChanged(nameof(ErrorMessage));
             }
         }
         #endregion
@@ -75,7 +76,7 @@ namespace WpfClient.ViewModels
                     {
                         if (hashedPassword.Equals(user.HashedPassword))
                         {
-                            AppNavHelper.NavigationService.Navigate(new MainView());
+                            NavigateByUserRole(user);
                             ErrorMessage = null;
                             return;
                         }
@@ -84,6 +85,18 @@ namespace WpfClient.ViewModels
                     }
                     ErrorMessage = "User not found";
                 }, (obj) => IsValid));
+
+        private void NavigateByUserRole(User user)
+        {
+            Page view;
+            switch (user.Role)
+            {
+                case Role.Manager: view = new ManagerView(); break;
+                case Role.Intern: view = new InternView(); break;
+                default: view = new NotUpprovedView(); ; break;
+            }
+            AppNavHelper.NavigationService.Navigate(view);
+        }
 
         #endregion
 

@@ -17,7 +17,7 @@ namespace WpfClient.Validations
                 }
             }
 
-            return new ValidationResult(false, "Field required");
+            return new ValidationResult(false, "Field is required");
         }
     }
 }

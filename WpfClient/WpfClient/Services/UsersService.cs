@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using WpfClient.DataBase;
@@ -31,6 +32,47 @@ namespace WpfClient.Services
             using (DataBaseContext db = new DataBaseContext())
             {
                 return db.Users.Any(u => u.Email == email);
+            }
+        }
+
+        public static async Task<List<User>> GetUsersWithoutRolesAsync()
+        {
+            using (DataBaseContext db = new DataBaseContext())
+            {
+                return await db.Users.Where(u => u.Role == null).Include(u => u.UserDetails).ToListAsync();
+            }
+        }
+
+        public static async Task<bool> UpdateUser(User user)
+        {
+            using (DataBaseContext db = new DataBaseContext())
+            {
+                User userToUpdate = db.Users.Find(user.Id);
+                userToUpdate.Role = user.Role;
+
+                Person personToUpdate = db.People.Find(user.UserDetails.Id);
+                personToUpdate.FirstName = user.UserDetails.FirstName;
+                personToUpdate.LastName = user.UserDetails.LastName;
+
+                int rowsUpdated = await db.SaveChangesAsync();
+
+                return rowsUpdated > 0;
+            }
+        }
+
+        public static async Task<bool> DeleteUser(User user)
+        {
+            using (DataBaseContext db = new DataBaseContext())
+            {
+                Person personToDelete= db.People.Find(user.UserDetails.Id);
+                db.People.Remove(personToDelete);
+
+                User userToDelete = db.Users.Find(user.Id);
+                db.Users.Remove(userToDelete);
+
+                int rowsUpdated = await db.SaveChangesAsync();
+
+                return rowsUpdated >= 2;
             }
         }
     }

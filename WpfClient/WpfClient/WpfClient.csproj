@@ -108,27 +108,55 @@
     <Compile Include="DataBase\Models\InternshipGoal.cs" />
     <Compile Include="DataBase\Models\Person.cs" />
     <Compile Include="DataBase\Models\User.cs" />
+    <Compile Include="Migrations\202005091329493_RolesAdjustment.cs" />
+    <Compile Include="Migrations\202005091329493_RolesAdjustment.Designer.cs">
+      <DependentUpon>202005091329493_RolesAdjustment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005091334469_MakeRoleNullableAdjustment.cs" />
+    <Compile Include="Migrations\202005091334469_MakeRoleNullableAdjustment.Designer.cs">
+      <DependentUpon>202005091334469_MakeRoleNullableAdjustment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PendingUser.cs" />
     <Compile Include="Models\UserSignUpCredentials.cs" />
     <Compile Include="Models\UserCredentials.cs" />
     <Compile Include="Services\AppNavHelper.cs" />
     <Compile Include="Services\UsersService.cs" />
     <Compile Include="Validations\NotEmptyRule.cs" />
+    <Compile Include="ViewModels\InternViewModel.cs" />
+    <Compile Include="ViewModels\ManagerViewModel.cs" />
+    <Compile Include="ViewModels\PendingUserViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />
     <Compile Include="ViewModels\AuthorizationViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\InternView.xaml.cs">
+      <DependentUpon>InternView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManagerView.xaml.cs">
+      <DependentUpon>ManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NotUpprovedView.xaml.cs">
+      <DependentUpon>NotUpprovedView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SignUpView.xaml.cs">
       <DependentUpon>SignUpView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Page Include="Views\InternView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NotUpprovedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SignUpView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AuthorizationView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -146,9 +174,6 @@
     <Compile Include="Auth\PasswordEncoder.cs" />
     <Compile Include="DataBase\DataBaseContext.cs" />
     <Compile Include="Commands\Command.cs" />
-    <Compile Include="MainView.xaml.cs">
-      <DependentUpon>MainView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MainWindowView.xaml.cs">
       <DependentUpon>MainWindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -175,6 +200,12 @@
     </Compile>
     <EmbeddedResource Include="Migrations\202005081624154_InitialCreate.resx">
       <DependentUpon>202005081624154_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005091329493_RolesAdjustment.resx">
+      <DependentUpon>202005091329493_RolesAdjustment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005091334469_MakeRoleNullableAdjustment.resx">
+      <DependentUpon>202005091334469_MakeRoleNullableAdjustment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
