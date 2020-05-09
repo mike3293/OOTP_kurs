@@ -34,7 +34,7 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <TextBox FontFamily="pack://application:,,,/Resources/#password" materialDesign:HintAssist.Hint="Password" Height="26" Grid.Row="1" Grid.ColumnSpan="2">
+        <TextBox materialDesign:HintAssist.Hint="Password" Height="26" Grid.Row="1" Grid.ColumnSpan="2">
             <TextBox.Text>
                 <Binding Path="Password" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
@@ -45,7 +45,7 @@
         </TextBox>
         <TextBox materialDesign:HintAssist.Hint="First name" Height="26" Grid.Row="2" Grid.ColumnSpan="2">
             <TextBox.Text>
-                <Binding Path="Password" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                <Binding Path="FirstName" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
                         <rules:NotEmptyRule ValidatesOnTargetUpdated="True" />
                     </Binding.ValidationRules>
@@ -54,15 +54,15 @@
         </TextBox>
         <TextBox materialDesign:HintAssist.Hint="Last name" Height="26" Grid.Row="3" Grid.ColumnSpan="2">
             <TextBox.Text>
-                <Binding Path="Password" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                <Binding Path="LastName" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
                         <rules:NotEmptyRule ValidatesOnTargetUpdated="True" />
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Button  Command="{Binding SignInCommand}" Content="Sign Up" HorizontalAlignment="Left" VerticalAlignment="Center" Width="82" Grid.Row="4" Grid.Column="0"/>
-        <Button Content="Back" HorizontalAlignment="Right" VerticalAlignment="Center" Width="82" Grid.Row="4" Grid.Column="1"/>
+        <Button  Command="{Binding SignUpCommand}" Content="Sign Up" HorizontalAlignment="Left" VerticalAlignment="Center" Width="82" Grid.Row="4" Grid.Column="0"/>
+        <Button Command="{Binding BackCommand}" Content="Back" HorizontalAlignment="Right" VerticalAlignment="Center" Width="82" Grid.Row="4" Grid.Column="1"/>
         <TextBlock Text="{Binding ErrorMessage}" DockPanel.Dock="Bottom" Foreground="Red"  Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </Page>

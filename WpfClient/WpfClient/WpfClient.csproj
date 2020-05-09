@@ -108,6 +108,7 @@
     <Compile Include="DataBase\Models\InternshipGoal.cs" />
     <Compile Include="DataBase\Models\Person.cs" />
     <Compile Include="DataBase\Models\User.cs" />
+    <Compile Include="Models\UserSignUpCredentials.cs" />
     <Compile Include="Models\UserCredentials.cs" />
     <Compile Include="Services\AppNavHelper.cs" />
     <Compile Include="Services\UsersService.cs" />

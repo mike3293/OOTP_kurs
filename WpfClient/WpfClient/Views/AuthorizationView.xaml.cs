@@ -42,40 +42,5 @@ namespace WpfClient.Views
             
             viewModel.IsValid = !errors.Any();
         }
-
-        //private void OnSignIn(object sender, RoutedEventArgs e)
-        //{
-        //    NavigationService.Navigate(new Uri("MainView.xaml", UriKind.Relative));
-        //}
-
-        //private void OnSignUp(object sender, RoutedEventArgs e)
-        //{
-        //    Person person = new Person
-        //    {
-        //        FirstName = "First",
-        //        LastName = "Last",
-        //    };
-
-        //    User user = new User
-        //    {
-        //        Email = "manager@manager.ru",
-        //        HashedPassword = PasswordEncoder.GetHash("manager"),
-        //        Role = Role.Manager,
-        //        UserDetails = person,
-        //    };
-
-        //    DataBaseContext context = new DataBaseContext();
-        //    context.Users.Add(user);
-        //    context.SaveChangesAsync();
-
-        //    //Internship i = new Internship
-        //    //{
-        //    //    Id = Guid.NewGuid(),
-        //    //};
-
-        //    //BackEndContext context = new BackEndContext();
-        //    //context.Internships.Add(i);
-        //    //context.SaveChanges();
-        //}
     }
 }

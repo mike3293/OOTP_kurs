@@ -1,12 +1,11 @@
-﻿using System;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
 using WpfClient.Auth;
 using WpfClient.Commands;
 using WpfClient.DataBase.Models;
 using WpfClient.Models;
 using WpfClient.Services;
+using WpfClient.Views;
 
 namespace WpfClient.ViewModels
 {
@@ -39,7 +38,7 @@ namespace WpfClient.ViewModels
         private bool _isValid;
         public bool IsValid
         {
-            get { return _isValid; }
+            get => _isValid;
             set
             {
                 _isValid = value;
@@ -50,7 +49,7 @@ namespace WpfClient.ViewModels
         private string _errorMessage;
         public string ErrorMessage
         {
-            get { return _errorMessage; }
+            get => _errorMessage;
             set
             {
                 _errorMessage = value;
@@ -69,7 +68,7 @@ namespace WpfClient.ViewModels
                     string hashedPassword = PasswordEncoder.GetHash(Password);
 
                     AppNavHelper.ShowProgressBar();
-                    User user = await Task.Run(() => UsersService.GetUserByEmail(Email));
+                    User user = await Task.Run(() => UsersService.GetUserByEmailAsync(Email));
                     AppNavHelper.HideProgressBar();
 
                     if (user != null)
@@ -85,6 +84,20 @@ namespace WpfClient.ViewModels
                     }
                     ErrorMessage = "User not found";
                 }, (obj) => IsValid));
+
+        #endregion
+
+        #region SignUpCommand
+
+        private Command _signUpCommand;
+
+        public ICommand SignUpCommand => _signUpCommand ?? (_signUpCommand = new Command(
+                (obj) =>
+                {
+                    AppNavHelper.NavigationService.Navigate(new SignUpView());
+                    ErrorMessage = null;
+                    return;
+                }));
 
         #endregion
     }
