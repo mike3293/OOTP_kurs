@@ -1,4 +1,4 @@
-﻿<Page x:Class="WpfClient.Views.AuthorizationView"
+﻿<Page x:Class="WpfClient.Views.SignUpView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -18,10 +18,12 @@
       >
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="200">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
             <RowDefinition Height="45"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBox materialDesign:HintAssist.Hint="Email" Height="26" TextWrapping="Wrap" Grid.Row="0" Grid.ColumnSpan="2">
             <TextBox.Text>
@@ -41,8 +43,26 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Button  Command="{Binding SignInCommand}" Content="Sign In" HorizontalAlignment="Left" VerticalAlignment="Center" Width="82" Grid.Row="2" Grid.Column="0"/>
-        <Button Content="Sign Up" HorizontalAlignment="Right" VerticalAlignment="Center" Width="82" Grid.Row="2" Grid.Column="1"/>
-        <TextBlock Text="{Binding ErrorMessage}" DockPanel.Dock="Bottom" Foreground="Red"  Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox materialDesign:HintAssist.Hint="First name" Height="26" Grid.Row="2" Grid.ColumnSpan="2">
+            <TextBox.Text>
+                <Binding Path="Password" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <rules:NotEmptyRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox materialDesign:HintAssist.Hint="Last name" Height="26" Grid.Row="3" Grid.ColumnSpan="2">
+            <TextBox.Text>
+                <Binding Path="Password" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <rules:NotEmptyRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Button  Command="{Binding SignInCommand}" Content="Sign Up" HorizontalAlignment="Left" VerticalAlignment="Center" Width="82" Grid.Row="4" Grid.Column="0"/>
+        <Button Content="Back" HorizontalAlignment="Right" VerticalAlignment="Center" Width="82" Grid.Row="4" Grid.Column="1"/>
+        <TextBlock Text="{Binding ErrorMessage}" DockPanel.Dock="Bottom" Foreground="Red"  Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </Page>

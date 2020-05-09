@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 public enum Role { Manager, Mentor, Intern }
 
@@ -26,5 +28,10 @@ namespace WpfClient.DataBase.Models
 
         [Required]
         public Role Role { get; set; }
+
+        public static implicit operator Task(User v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

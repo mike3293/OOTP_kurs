@@ -17,8 +17,10 @@ namespace WpfClient.Views
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            AppNavHelper.NavigationService = _NavigationFrame.NavigationService;
-            
+            AppNavHelper.NavigationService = NavigationFrame.NavigationService;
+            AppNavHelper.ShowProgressBar = () => ProgressBar.Visibility = Visibility.Visible;
+            AppNavHelper.HideProgressBar = () => ProgressBar.Visibility = Visibility.Hidden;
+
             AppNavHelper.NavigationService.Navigate(new AuthorizationView());
         }
     }

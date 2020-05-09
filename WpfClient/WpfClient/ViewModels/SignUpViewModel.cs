@@ -10,10 +10,9 @@ using WpfClient.Services;
 
 namespace WpfClient.ViewModels
 {
-    public class AuthorizationViewModel : ViewModelBase
+    public class SignUpViewModel : ViewModelBase
     {
-        // TODO: Delete init
-        public UserCredentials UserCredentials = new UserCredentials() { Email = "manager@manager.ru" };
+        public UserCredentials UserCredentials = new UserCredentials();
 
         public string Email
         {
