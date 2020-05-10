@@ -1,11 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 using WpfClient.Commands;
 using WpfClient.DataBase.Models;
+using WpfClient.Helpers;
 using WpfClient.Models;
 using WpfClient.Services;
+using WpfClient.Views;
 
 namespace WpfClient.ViewModels
 {
@@ -13,6 +22,14 @@ namespace WpfClient.ViewModels
     {
         #region GetData
         private ObservableCollection<PendingUserViewModel> usersPendingApproval;
+
+        private List<Internship> _internships;
+
+        private string _searchQuery = "";
+
+        private ObservableCollection<Internship> filteredInternships;
+
+        private Internship selectedIntern;
 
         public ObservableCollection<PendingUserViewModel> UsersPendingApproval
         {
@@ -24,24 +41,86 @@ namespace WpfClient.ViewModels
             }
         }
 
-        public ManagerViewModel() => GetUsers();
+        public ObservableCollection<Internship> FilteredInternships
+        {
+            get => filteredInternships;
+            set
+            {
+                filteredInternships = value;
+                OnPropertyChanged(nameof(FilteredInternships));
+            }
+        }
+
+        public Internship SelectedIntern
+        {
+            get => selectedIntern;
+            set
+            {
+                selectedIntern = value;
+                OnPropertyChanged(nameof(SelectedIntern));
+            }
+        }
+
+        public string SearchQuery
+        {
+            get => _searchQuery;
+            set
+            {
+                _searchQuery = value;
+                OnPropertyChanged(nameof(SearchQuery));
+            }
+        }
+
+        public ManagerViewModel()
+        {
+            _ = GetInternships();
+            _ = GetUsers();
+        }
+
+        private async Task GetInternships()
+        {
+            AppNavHelper.ShowProgressBar();
+            List<Internship> internships = await Task.Run(() => InternshipsService.GetInternshipsByManagerIdAsync(AppNavHelper.CurrentUser.UserDetails.Id));
+            _internships = internships.OrderBy(i => i.GetSearchData()).ToList();
+            GetFilteredInternships();
+
+            var outdatedInternships = _internships.Where(i => i.EndDate < DateTime.Today);
+            if (outdatedInternships.Count() > 0)
+            {
+                foreach(var i in outdatedInternships)
+                {
+                    AppNavHelper.Notifier.ShowWarning($"You have outdeted internship:\nName: {i.Intern.FirstName} {i.Intern.LastName}\nEnd date: {i.EndDate}");
+                }
+            }
+            AppNavHelper.HideProgressBar();
+        }
 
         private async Task GetUsers()
         {
             AppNavHelper.ShowProgressBar();
             var users = await Task.Run(() => UsersService.GetUsersWithoutRolesAsync());
-            AppNavHelper.HideProgressBar();
 
-            UsersPendingApproval = new ObservableCollection<PendingUserViewModel>(users.Select((u, i) =>
+            UsersPendingApproval = new ObservableCollection<PendingUserViewModel>(users.Select(u =>
             {
                 PendingUser user = new PendingUser(u.Id, u.UserDetails.Id, u.Email, u.UserDetails.FirstName, u.UserDetails.LastName);
-                return new PendingUserViewModel(user, () => UsersPendingApproval.RemoveAt(i));
+                return new PendingUserViewModel(
+                    user,
+                    () => { UsersPendingApproval.Remove(UsersPendingApproval.Where(us => us.PendingUser.Id == u.Id).Single()); _ = GetInternships(); },
+                    () => IsValid
+                    );
             }));
+            AppNavHelper.HideProgressBar();
+        }
+
+        private void GetFilteredInternships()
+        {
+            var filteredInternships = _internships.Where(i => i.GetSearchData().Contains(SearchQuery.ToLower()));
+            FilteredInternships = new ObservableCollection<Internship>(filteredInternships);
         }
         #endregion
 
         #region Validation
-        private bool _isValid;
+        private bool _isValid = true;
         public bool IsValid
         {
             get => _isValid;
@@ -51,6 +130,35 @@ namespace WpfClient.ViewModels
                 OnPropertyChanged(nameof(IsValid));
             }
         }
+        #endregion
+
+        #region ItemSelectedCommand
+        private Command _itemSelectedCommand;
+
+        public ICommand ItemSelectedCommand => _itemSelectedCommand ?? (_itemSelectedCommand = new Command(
+                (obj) =>
+                {
+                    if (obj is Internship internship)
+                    {
+                        AppNavHelper.NavigationService.Navigate(new InternView(internship));
+                    }
+                }));
+
+        #endregion
+
+        #region TextChangedCommand
+
+        private Command _textChangedCommand;
+
+        public ICommand TextChangedCommand => _textChangedCommand ?? (_textChangedCommand = new Command(
+                (obj) =>
+                {
+                    if(_internships != null)
+                    {
+                        GetFilteredInternships();
+                    }
+                }));
+
         #endregion
     }
 }

@@ -13,7 +13,7 @@ namespace WpfClient.ViewModels
     public class AuthorizationViewModel : ViewModelBase
     {
         // TODO: Delete init
-        public UserCredentials UserCredentials = new UserCredentials() { Email = "manager" };
+        public UserCredentials UserCredentials = new UserCredentials() { Email = "manager", Password="manager" };
 
         public string Email
         {
@@ -36,7 +36,7 @@ namespace WpfClient.ViewModels
         }
 
         #region Validation
-        private bool _isValid;
+        private bool _isValid = true;
         public bool IsValid
         {
             get => _isValid;
@@ -61,9 +61,9 @@ namespace WpfClient.ViewModels
 
         #region SignInCommand
 
-        private AsyncCommand _signInCommand;
+        private AsyncCommandWithTimeout _signInCommand;
 
-        public IAsyncCommand SignInCommand => _signInCommand ?? (_signInCommand = new AsyncCommand(
+        public IAsyncCommand SignInCommand => _signInCommand ?? (_signInCommand = new AsyncCommandWithTimeout(
                 async (obj) =>
                 {
                     string hashedPassword = PasswordEncoder.GetHash(Password);
@@ -76,6 +76,7 @@ namespace WpfClient.ViewModels
                     {
                         if (hashedPassword.Equals(user.HashedPassword))
                         {
+                            AppNavHelper.CurrentUser = user;
                             NavigateByUserRole(user);
                             ErrorMessage = null;
                             return;
@@ -92,7 +93,7 @@ namespace WpfClient.ViewModels
             switch (user.Role)
             {
                 case Role.Manager: view = new ManagerView(); break;
-                case Role.Intern: view = new InternView(); break;
+                case Role.Intern: view = new InternView(user); break;
                 default: view = new NotUpprovedView(); ; break;
             }
             AppNavHelper.NavigationService.Navigate(view);

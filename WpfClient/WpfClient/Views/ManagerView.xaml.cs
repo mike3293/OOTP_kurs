@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
+using WpfClient.Services;
 using WpfClient.ViewModels;
 
 namespace WpfClient.Views
@@ -36,6 +38,30 @@ namespace WpfClient.Views
 
             viewModel.IsValid = !errors.Any();
         }
+
+
+
+
+        //private void ListViewItem_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        //{
+        //    Internships.SelectedItems.Clear();
+
+        //    ListViewItem item = sender as ListViewItem;
+        //    if (item != null)
+        //    {
+        //        item.IsSelected = true;
+        //        Internships.SelectedItem = item;
+        //    }
+        //}
+
+        //private void ListViewItem_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        //{
+        //    ListViewItem item = sender as ListViewItem;
+        //    if (item != null && item.IsSelected)
+        //    {
+        //        AppNavHelper.NavigationService.Navigate(new InternView());
+        //    }
+        //}
     }
 
 }

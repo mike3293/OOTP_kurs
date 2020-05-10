@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:serv="clr-namespace:WpfClient.Services"
         xmlns:local="clr-namespace:WpfClient.Views"
         mc:Ignorable="d"
         Title="Internships" Height="450" Width="800"
@@ -15,7 +16,7 @@
             <RowDefinition Height="100*" />
             <RowDefinition Height="4"/>
         </Grid.RowDefinitions>
-        <Frame x:Name="NavigationFrame" NavigationUIVisibility="Hidden" />
+        <Frame x:Name="NavigationFrame" serv:DisableNavigation.Disable="True" NavigationUIVisibility="Hidden" />
         <ProgressBar x:Name="ProgressBar" Visibility="Hidden" IsIndeterminate="True" Grid.Row="1" />
     </Grid>
 </Window>

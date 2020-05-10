@@ -4,11 +4,57 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfClient.Views"
+      xmlns:rules="clr-namespace:WpfClient.Validations"
+      xmlns:imgConv="clr-namespace:WpfClient.Services"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="InternView">
-
+      Title="InternView"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="14"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+      >
+    <Page.Resources>
+        <BitmapImage x:Key="DefaultImage" UriSource="../Resources/User.png" />
+    </Page.Resources>
     <Grid>
-        
+        <Button Command="{Binding GoBackCommand}" Visibility="{Binding CanEdit}" Background="Transparent" BorderThickness="0" VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Light">
+            <Image Source="../Resources/Arrows.png"/>
+        </Button>
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition MinWidth="80"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Command="{Binding UploadImageCommand}" Visibility="{Binding CanEdit}" Grid.Column="0" Grid.RowSpan="4" Height="Auto" Width="Auto" Background="Transparent" BorderThickness="0" Margin="0,0,20,0" >
+                <Ellipse Height="100" Width="100" Stroke="LightGray" StrokeThickness="2" Margin="-15, -3">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding Internship.Intern.Image, TargetNullValue={StaticResource DefaultImage}, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Button>
+            <TextBlock Text="First Name:" Opacity="0.9" Grid.Column="1"/>
+            <TextBlock Text="Last Name:" Opacity="0.9" Grid.Column="1" Grid.Row="1"/>
+            <TextBlock Text="Start Date:" Opacity="0.9" Grid.Column="1" Grid.Row="2"/>
+            <TextBlock Text="End date:" Opacity="0.9" Grid.Column="1" Grid.Row="3"/>
+            <TextBlock Text="{Binding Internship.Intern.FirstName}" FontWeight="Bold"  Grid.Column="2"/>
+            <TextBlock Text="{Binding Internship.Intern.LastName}" FontWeight="Bold" Grid.Column="2" Grid.Row="1"/>
+            <TextBlock Text="{Binding Internship.EndDate, StringFormat=dd.MM.yyyy}" FontWeight="Bold" Grid.Column="2" Grid.Row="2"/>
+            <TextBlock Text="{Binding Internship.StartDate, StringFormat=dd.MM.yyyy}" FontWeight="Bold" Grid.Column="2" Grid.Row="3"/>
+            <TextBlock Text="Click to change" Opacity="0.8" Grid.Column="0" Grid.Row="4"/>
+            <Button Command="{Binding GoToEditCommand}" Content="Edit" Visibility="{Binding CanEdit}" Grid.Column="2" Grid.Row="4"/>
+        </Grid>
     </Grid>
 </Page>

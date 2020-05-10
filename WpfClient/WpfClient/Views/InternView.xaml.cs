@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfClient.DataBase.Models;
+using WpfClient.ViewModels;
 
 namespace WpfClient.Views
 {
@@ -20,9 +22,18 @@ namespace WpfClient.Views
     /// </summary>
     public partial class InternView : Page
     {
-        public InternView()
+        public InternView(Internship internship)
         {
             InitializeComponent();
+
+            DataContext = new InternViewModel(internship);
+        }
+
+        public InternView(User user)
+        {
+            InitializeComponent();
+
+            DataContext = new InternViewModel(user);
         }
     }
 }

@@ -11,12 +11,15 @@ namespace WpfClient.ViewModels
     {
         public PendingUser PendingUser;
 
-        public Action RemoveDelegate;
+        public Action OnUpdated;
 
-        public PendingUserViewModel(PendingUser user, Action remove)
+        public Func<bool> CheckIfValid;
+
+        public PendingUserViewModel(PendingUser user, Action update, Func<bool> checkIfValid)
         {
             PendingUser = user;
-            RemoveDelegate = remove;
+            OnUpdated = update;
+            CheckIfValid = checkIfValid;
         }
 
         public string Email
@@ -53,36 +56,31 @@ namespace WpfClient.ViewModels
 
         public string DisplayName => $"{FirstName} {LastName}";
 
-        #region Validation
-        private bool _userIsValid;
-        public bool UserIsValid
-        {
-            get => _userIsValid;
-            set
-            {
-                _userIsValid = value;
-                OnPropertyChanged(nameof(UserIsValid));
-            }
-        }
-        #endregion
-
         #region AddInternCommand
 
-        private AsyncCommand _addInternCommand;
+        private AsyncCommandWithTimeout _addInternCommand;
 
-        public IAsyncCommand AddInternCommand => _addInternCommand ?? (_addInternCommand = new AsyncCommand(
+        public IAsyncCommand AddInternCommand => _addInternCommand ?? (_addInternCommand = new AsyncCommandWithTimeout(
                 async (obj) =>
                 {
                     User user = CreateDbUser();
                     AppNavHelper.ShowProgressBar();
                     bool userUpdated = await Task.Run(() => UsersService.UpdateUser(user));
+                    Internship internship = new Internship()
+                    {
+                        Intern = user.UserDetails,
+                        Manager = AppNavHelper.CurrentUser.UserDetails,
+                        StartDate = DateTime.Today,
+                        EndDate = DateTime.Today.AddDays(30)
+                    };
+                    await Task.Run(() => InternshipsService.AddInternshipAsync(internship));
                     AppNavHelper.HideProgressBar();
 
                     if (userUpdated)
                     {
-                        RemoveDelegate();
+                        OnUpdated();
                     }
-                }));
+                },obj => CheckIfValid()));
 
         private User CreateDbUser(Role role = Role.Intern)
         {
@@ -102,9 +100,9 @@ namespace WpfClient.ViewModels
 
         #region AddManagerCommand
 
-        private AsyncCommand _addManagerCommand;
+        private AsyncCommandWithTimeout _addManagerCommand;
 
-        public IAsyncCommand AddManagerCommand => _addManagerCommand ?? (_addManagerCommand = new AsyncCommand(
+        public IAsyncCommand AddManagerCommand => _addManagerCommand ?? (_addManagerCommand = new AsyncCommandWithTimeout(
                 async (obj) =>
                 {
                     User user = CreateDbUser(Role.Manager);
@@ -114,16 +112,16 @@ namespace WpfClient.ViewModels
 
                     if (userUpdated)
                     {
-                        RemoveDelegate();
+                        OnUpdated();
                     }
-                }));
+                }, obj => CheckIfValid()));
         #endregion
 
         #region RemoveCommand
 
-        private AsyncCommand _removeCommand;
+        private AsyncCommandWithTimeout _removeCommand;
 
-        public IAsyncCommand RemoveCommand => _removeCommand ?? (_removeCommand = new AsyncCommand(
+        public IAsyncCommand RemoveCommand => _removeCommand ?? (_removeCommand = new AsyncCommandWithTimeout(
                 async (obj) =>
                 {
                     User user = CreateDbUser();
@@ -133,7 +131,7 @@ namespace WpfClient.ViewModels
 
                     if (userDeleted)
                     {
-                        RemoveDelegate();
+                        OnUpdated();
                     }
                 }));
         #endregion

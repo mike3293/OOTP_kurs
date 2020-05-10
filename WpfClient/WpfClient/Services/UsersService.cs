@@ -13,7 +13,7 @@ namespace WpfClient.Services
         {
             using (DataBaseContext db = new DataBaseContext())
             {
-                return await db.Users.Where(u => u.Email == email).SingleOrDefaultAsync();
+                return await db.Users.Where(u => u.Email == email).Include(u => u.UserDetails).SingleOrDefaultAsync();
             }
         }
 

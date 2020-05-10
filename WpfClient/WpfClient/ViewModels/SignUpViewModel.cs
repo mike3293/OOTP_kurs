@@ -79,9 +79,9 @@ namespace WpfClient.ViewModels
 
         #region SignUpCommand
 
-        private AsyncCommand _signUpCommand;
+        private AsyncCommandWithTimeout _signUpCommand;
 
-        public IAsyncCommand SignUpCommand => _signUpCommand ?? (_signUpCommand = new AsyncCommand(
+        public IAsyncCommand SignUpCommand => _signUpCommand ?? (_signUpCommand = new AsyncCommandWithTimeout(
                 async (obj) =>
                 {
                     string hashedPassword = PasswordEncoder.GetHash(Password);
@@ -112,7 +112,7 @@ namespace WpfClient.ViewModels
                     bool userCreated = await Task.Run(() => UsersService.AddUserAsync(user));
                     if (userCreated)
                     {
-                        AppNavHelper.NavigationService.GoBack();
+                        AppNavHelper.NavigationService.Navigate(new AuthorizationView());
                         ErrorMessage = null;
                     }
                     else
