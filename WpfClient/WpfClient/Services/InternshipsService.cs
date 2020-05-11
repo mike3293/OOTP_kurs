@@ -28,6 +28,7 @@ namespace WpfClient.Services
                 return rowsUpdated > 0;
             }
         }
+
         public static async Task<Internship> GetInternshipByInternIdAsync(int internId)
         {
             using (DataBaseContext db = new DataBaseContext())

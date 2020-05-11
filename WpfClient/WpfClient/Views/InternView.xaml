@@ -19,9 +19,14 @@
       >
     <Page.Resources>
         <BitmapImage x:Key="DefaultImage" UriSource="../Resources/User.png" />
+        <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
     </Page.Resources>
     <Grid>
-        <Button Command="{Binding GoBackCommand}" Visibility="{Binding CanEdit}" Background="Transparent" BorderThickness="0" VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Light">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Command="{Binding GoBackCommand}" Visibility="{Binding CanManage}" Background="Transparent" BorderThickness="0" VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Light">
             <Image Source="../Resources/Arrows.png"/>
         </Button>
         <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -38,7 +43,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Command="{Binding UploadImageCommand}" Visibility="{Binding CanEdit}" Grid.Column="0" Grid.RowSpan="4" Height="Auto" Width="Auto" Background="Transparent" BorderThickness="0" Margin="0,0,20,0" >
+            <Button Command="{Binding UploadImageCommand}" Visibility="{Binding CanManage}" Grid.Column="0" Grid.RowSpan="4" Height="Auto" Width="Auto" Background="Transparent" BorderThickness="0" Margin="0,0,20,0" >
                 <Ellipse Height="100" Width="100" Stroke="LightGray" StrokeThickness="2" Margin="-15, -3">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="{Binding Internship.Intern.Image, TargetNullValue={StaticResource DefaultImage}, UpdateSourceTrigger=PropertyChanged}"/>
@@ -54,7 +59,44 @@
             <TextBlock Text="{Binding Internship.EndDate, StringFormat=dd.MM.yyyy}" FontWeight="Bold" Grid.Column="2" Grid.Row="2"/>
             <TextBlock Text="{Binding Internship.StartDate, StringFormat=dd.MM.yyyy}" FontWeight="Bold" Grid.Column="2" Grid.Row="3"/>
             <TextBlock Text="Click to change" Opacity="0.8" Grid.Column="0" Grid.Row="4"/>
-            <Button Command="{Binding GoToEditCommand}" Content="Edit" Visibility="{Binding CanEdit}" Grid.Column="2" Grid.Row="4"/>
+            <Button Command="{Binding GoToEditCommand}" Visibility="{Binding CanManage}" HorizontalAlignment="Left" Content="Edit"  Grid.Column="2" Grid.Row="4"/>
+        </Grid>
+        <Grid Grid.Row="1" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontSize="20" Text="Assessments:" VerticalAlignment="Center"  Opacity="0.8" Grid.Row="0"/>
+                <Button Command="{Binding InitAddingAssessmentCommand}"  Visibility="{Binding CanManage}" BorderThickness="0" Background="Transparent" Foreground="LightBlue" FontWeight="Light" Margin="10,5,0,0">
+                    <TextBlock Margin="-15, 0" Text="+Add"/>
+                </Button>
+            </StackPanel>
+            <ListView SelectedItem="{Binding SelectedAssessment, Mode=OneWayToSource}" ItemsSource="{Binding Assessments}" IsSynchronizedWithCurrentItem="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Date, StringFormat=dd.MM.yyyy}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Location}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Topic}" FontWeight="Bold"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackPanel Visibility="{Binding IsAddingAssessment, Mode=OneWay, Converter={StaticResource VisibleIfTrueConverter}}" Grid.Column="1" Grid.RowSpan="2" Margin="5,0">
+                <TextBox Text="{Binding NewAssessment.Location}" materialDesign:HintAssist.Hint="Location" Margin="0,0,0,10" />
+                <TextBox  Text="{Binding NewAssessment.Topic}" materialDesign:HintAssist.Hint="Topic" Margin="0,0,0,10"/>
+                <DatePicker SelectedDate="{Binding NewAssessment.Date}" Margin="0,0,0,10"/>
+                <materialDesign:TimePicker SelectedTime="{Binding NewAssessment.Time}" />
+                <StackPanel>
+                    <Button Command="{Binding AddAssessmentCommand}" Content="Add assessment"  Margin="0,10" />
+                    <Button Command="{Binding CancelAssessmentAddingCommand}" BorderBrush="DarkRed" Background="Red" Content="Cancel"/>
+                </StackPanel>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

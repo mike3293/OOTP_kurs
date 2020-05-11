@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-namespace WpfClient.Services
+namespace WpfClient.Helpers
 {
     public static class DisableNavigation
     {

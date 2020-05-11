@@ -18,15 +18,16 @@ namespace WpfClient.Views
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            AppNavHelper.NavigationService = NavigationFrame.NavigationService;
-            AppNavHelper.ShowProgressBar = () => ProgressBar.Visibility = Visibility.Visible;
-            AppNavHelper.HideProgressBar = () => ProgressBar.Visibility = Visibility.Hidden;
+            AppNavHelper appNavHelper = AppNavHelper.GetInstance();
+            appNavHelper.NavigationService = NavigationFrame.NavigationService;
+            appNavHelper.ShowProgressBar = () => ProgressBar.Visibility = Visibility.Visible;
+            appNavHelper.HideProgressBar = () => ProgressBar.Visibility = Visibility.Hidden;
 
-            AppNavHelper.Notifier =  new Notifier(cfg =>
+            appNavHelper.Notifier =  new Notifier(cfg =>
             {
                 cfg.PositionProvider = new WindowPositionProvider(
                     parentWindow: Application.Current.MainWindow,
-                    corner: Corner.TopRight,
+                    corner: Corner.BottomRight,
                     offsetX: 10,
                     offsetY: 10);
 
@@ -37,7 +38,7 @@ namespace WpfClient.Views
                 cfg.Dispatcher = Application.Current.Dispatcher;
             });
             // Start page
-            AppNavHelper.NavigationService.Navigate(new AuthorizationView());
+            appNavHelper.NavigationService.Navigate(new AuthorizationView());
         }
     }
 }

@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using ToastNotifications;
-using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
-using ToastNotifications.Position;
 using WpfClient.Commands;
 using WpfClient.DataBase.Models;
 using WpfClient.Helpers;
@@ -20,6 +16,8 @@ namespace WpfClient.ViewModels
 {
     public class ManagerViewModel : ViewModelBase
     {
+        private AppNavHelper _appNavHelper = AppNavHelper.GetInstance();
+
         #region GetData
         private ObservableCollection<PendingUserViewModel> usersPendingApproval;
 
@@ -79,26 +77,26 @@ namespace WpfClient.ViewModels
 
         private async Task GetInternships()
         {
-            AppNavHelper.ShowProgressBar();
-            List<Internship> internships = await Task.Run(() => InternshipsService.GetInternshipsByManagerIdAsync(AppNavHelper.CurrentUser.UserDetails.Id));
+            _appNavHelper.IncrementTasksCounter();
+            List<Internship> internships = await Task.Run(() => InternshipsService.GetInternshipsByManagerIdAsync(_appNavHelper.CurrentUser.UserDetails.Id));
             _internships = internships.OrderBy(i => i.GetSearchData()).ToList();
             GetFilteredInternships();
 
-            var outdatedInternships = _internships.Where(i => i.EndDate < DateTime.Today);
+            IEnumerable<Internship> outdatedInternships = _internships.Where(i => i.EndDate > DateTime.Today);
             if (outdatedInternships.Count() > 0)
             {
-                foreach(var i in outdatedInternships)
+                foreach (Internship i in outdatedInternships)
                 {
-                    AppNavHelper.Notifier.ShowWarning($"You have outdeted internship:\nName: {i.Intern.FirstName} {i.Intern.LastName}\nEnd date: {i.EndDate}");
+                    _appNavHelper.Notifier.ShowWarning($"You have outdeted internship:\nName: {i.Intern.FirstName} {i.Intern.LastName}\nEnd date: {i.EndDate.ToShortDateString()}");
                 }
             }
-            AppNavHelper.HideProgressBar();
+            _appNavHelper.DecrementTasksCounter();
         }
 
         private async Task GetUsers()
         {
-            AppNavHelper.ShowProgressBar();
-            var users = await Task.Run(() => UsersService.GetUsersWithoutRolesAsync());
+            _appNavHelper.IncrementTasksCounter();
+            List<User> users = await Task.Run(() => UsersService.GetUsersWithoutRolesAsync());
 
             UsersPendingApproval = new ObservableCollection<PendingUserViewModel>(users.Select(u =>
             {
@@ -109,7 +107,7 @@ namespace WpfClient.ViewModels
                     () => IsValid
                     );
             }));
-            AppNavHelper.HideProgressBar();
+            _appNavHelper.DecrementTasksCounter();
         }
 
         private void GetFilteredInternships()
@@ -140,7 +138,7 @@ namespace WpfClient.ViewModels
                 {
                     if (obj is Internship internship)
                     {
-                        AppNavHelper.NavigationService.Navigate(new InternView(internship));
+                        _appNavHelper.NavigationService.Navigate(new InternView(internship));
                     }
                 }));
 
@@ -153,7 +151,7 @@ namespace WpfClient.ViewModels
         public ICommand TextChangedCommand => _textChangedCommand ?? (_textChangedCommand = new Command(
                 (obj) =>
                 {
-                    if(_internships != null)
+                    if (_internships != null)
                     {
                         GetFilteredInternships();
                     }

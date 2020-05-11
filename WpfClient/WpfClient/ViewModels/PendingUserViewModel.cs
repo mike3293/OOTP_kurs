@@ -9,6 +9,8 @@ namespace WpfClient.ViewModels
 {
     public class PendingUserViewModel : ViewModelBase
     {
+        private AppNavHelper _appNavHelper = AppNavHelper.GetInstance();
+
         public PendingUser PendingUser;
 
         public Action OnUpdated;
@@ -64,17 +66,17 @@ namespace WpfClient.ViewModels
                 async (obj) =>
                 {
                     User user = CreateDbUser();
-                    AppNavHelper.ShowProgressBar();
+                    _appNavHelper.IncrementTasksCounter();
                     bool userUpdated = await Task.Run(() => UsersService.UpdateUser(user));
                     Internship internship = new Internship()
                     {
                         Intern = user.UserDetails,
-                        Manager = AppNavHelper.CurrentUser.UserDetails,
+                        Manager = _appNavHelper.CurrentUser.UserDetails,
                         StartDate = DateTime.Today,
                         EndDate = DateTime.Today.AddDays(30)
                     };
                     await Task.Run(() => InternshipsService.AddInternshipAsync(internship));
-                    AppNavHelper.HideProgressBar();
+                    _appNavHelper.DecrementTasksCounter();
 
                     if (userUpdated)
                     {
@@ -106,9 +108,9 @@ namespace WpfClient.ViewModels
                 async (obj) =>
                 {
                     User user = CreateDbUser(Role.Manager);
-                    AppNavHelper.ShowProgressBar();
+                    _appNavHelper.IncrementTasksCounter();
                     bool userUpdated = await Task.Run(() => UsersService.UpdateUser(user));
-                    AppNavHelper.HideProgressBar();
+                    _appNavHelper.DecrementTasksCounter();
 
                     if (userUpdated)
                     {
@@ -125,9 +127,9 @@ namespace WpfClient.ViewModels
                 async (obj) =>
                 {
                     User user = CreateDbUser();
-                    AppNavHelper.ShowProgressBar();
+                    _appNavHelper.IncrementTasksCounter();
                     bool userDeleted = await Task.Run(() => UsersService.DeleteUser(user));
-                    AppNavHelper.HideProgressBar();
+                    _appNavHelper.DecrementTasksCounter();
 
                     if (userDeleted)
                     {

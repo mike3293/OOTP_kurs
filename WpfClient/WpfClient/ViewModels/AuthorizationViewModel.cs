@@ -66,17 +66,18 @@ namespace WpfClient.ViewModels
         public IAsyncCommand SignInCommand => _signInCommand ?? (_signInCommand = new AsyncCommandWithTimeout(
                 async (obj) =>
                 {
+                    AppNavHelper appNavHelper = AppNavHelper.GetInstance();
                     string hashedPassword = PasswordEncoder.GetHash(Password);
 
-                    AppNavHelper.ShowProgressBar();
+                    appNavHelper.IncrementTasksCounter();
                     User user = await Task.Run(() => UsersService.GetUserByEmailAsync(Email));
-                    AppNavHelper.HideProgressBar();
+                    appNavHelper.DecrementTasksCounter();
 
                     if (user != null)
                     {
                         if (hashedPassword.Equals(user.HashedPassword))
                         {
-                            AppNavHelper.CurrentUser = user;
+                            appNavHelper.CurrentUser = user;
                             NavigateByUserRole(user);
                             ErrorMessage = null;
                             return;
@@ -96,7 +97,7 @@ namespace WpfClient.ViewModels
                 case Role.Intern: view = new InternView(user); break;
                 default: view = new NotUpprovedView(); ; break;
             }
-            AppNavHelper.NavigationService.Navigate(view);
+            AppNavHelper.GetInstance().NavigationService.Navigate(view);
         }
 
         #endregion
@@ -108,7 +109,7 @@ namespace WpfClient.ViewModels
         public ICommand SignUpCommand => _signUpCommand ?? (_signUpCommand = new Command(
                 (obj) =>
                 {
-                    AppNavHelper.NavigationService.Navigate(new SignUpView());
+                    AppNavHelper.GetInstance().NavigationService.Navigate(new SignUpView());
                     ErrorMessage = null;
                     return;
                 }));

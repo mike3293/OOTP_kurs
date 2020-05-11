@@ -11,6 +11,8 @@ namespace WpfClient.ViewModels
 {
     public class SignUpViewModel : ViewModelBase
     {
+        private AppNavHelper _appNavHelper = AppNavHelper.GetInstance();
+
         public UserSignUpCredentials UserCredentials = new UserSignUpCredentials();
 
         public string Email
@@ -86,13 +88,13 @@ namespace WpfClient.ViewModels
                 {
                     string hashedPassword = PasswordEncoder.GetHash(Password);
 
-                    AppNavHelper.ShowProgressBar();
+                    _appNavHelper.IncrementTasksCounter();
                     bool emailExists = await Task.Run(() => UsersService.CheckIfUserExistsByEmail(Email));
 
                     if (emailExists)
                     {
                         ErrorMessage = "Email already registered";
-                        AppNavHelper.HideProgressBar();
+                        _appNavHelper.DecrementTasksCounter();
                         return;
                     }
 
@@ -112,14 +114,14 @@ namespace WpfClient.ViewModels
                     bool userCreated = await Task.Run(() => UsersService.AddUserAsync(user));
                     if (userCreated)
                     {
-                        AppNavHelper.NavigationService.Navigate(new AuthorizationView());
+                        _appNavHelper.NavigationService.Navigate(new AuthorizationView());
                         ErrorMessage = null;
                     }
                     else
                     {
                         ErrorMessage = "User was not created";
                     }
-                    AppNavHelper.HideProgressBar();
+                    _appNavHelper.DecrementTasksCounter();
                 }, (obj) => IsValid));
 
         #endregion
@@ -131,7 +133,7 @@ namespace WpfClient.ViewModels
         public ICommand BackCommand => _backCommand ?? (_backCommand = new Command(
                 (obj) =>
                 {
-                    AppNavHelper.NavigationService.Navigate(new AuthorizationView());
+                    _appNavHelper.NavigationService.Navigate(new AuthorizationView());
                     ErrorMessage = null;
                 }));
 

@@ -2,7 +2,6 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using ToastNotifications.Messages;
 using WpfClient.Services;
@@ -41,8 +40,10 @@ namespace WpfClient.Commands
             }
             catch (Exception e)
             {
-                AppNavHelper.HideProgressBar();
-                AppNavHelper.Notifier.ShowError(e.Message);
+                AppNavHelper appNavHelper = AppNavHelper.GetInstance();
+
+                appNavHelper.DecrementTasksCounter();
+                appNavHelper.Notifier.ShowError(e.Message);
             }
         }
 
