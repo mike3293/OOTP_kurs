@@ -12,7 +12,7 @@ namespace WpfClient.DataBase.Models
         public Internship Internship { get; set; }
 
         [Required]
-        [Column(TypeName = "date")]
+        [Column(TypeName = "datetime")]
         public DateTime Date { get; set; }
 
         public string Location { get; set; }

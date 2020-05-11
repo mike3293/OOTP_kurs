@@ -89,7 +89,7 @@ namespace WpfClient.ViewModels
                     string hashedPassword = PasswordEncoder.GetHash(Password);
 
                     _appNavHelper.IncrementTasksCounter();
-                    bool emailExists = await Task.Run(() => UsersService.CheckIfUserExistsByEmail(Email));
+                    bool emailExists = await Task.Run(() => UsersService.CheckIfUserExistsByEmailAsync(Email));
 
                     if (emailExists)
                     {

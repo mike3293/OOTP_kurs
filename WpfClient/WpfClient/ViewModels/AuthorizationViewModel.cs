@@ -12,6 +12,7 @@ namespace WpfClient.ViewModels
 {
     public class AuthorizationViewModel : ViewModelBase
     {
+        private AppNavHelper _appNavHelper = AppNavHelper.GetInstance();
         // TODO: Delete init
         public UserCredentials UserCredentials = new UserCredentials() { Email = "manager", Password="manager" };
 
@@ -66,18 +67,17 @@ namespace WpfClient.ViewModels
         public IAsyncCommand SignInCommand => _signInCommand ?? (_signInCommand = new AsyncCommandWithTimeout(
                 async (obj) =>
                 {
-                    AppNavHelper appNavHelper = AppNavHelper.GetInstance();
                     string hashedPassword = PasswordEncoder.GetHash(Password);
 
-                    appNavHelper.IncrementTasksCounter();
+                    _appNavHelper.IncrementTasksCounter();
                     User user = await Task.Run(() => UsersService.GetUserByEmailAsync(Email));
-                    appNavHelper.DecrementTasksCounter();
+                    _appNavHelper.DecrementTasksCounter();
 
                     if (user != null)
                     {
                         if (hashedPassword.Equals(user.HashedPassword))
                         {
-                            appNavHelper.CurrentUser = user;
+                            _appNavHelper.CurrentUser = user;
                             NavigateByUserRole(user);
                             ErrorMessage = null;
                             return;
@@ -86,7 +86,7 @@ namespace WpfClient.ViewModels
                         return;
                     }
                     ErrorMessage = "User not found";
-                }, (obj) => IsValid));
+                }, (obj) => IsValid && _appNavHelper.CheckIfNoTasks()));
 
         private void NavigateByUserRole(User user)
         {
@@ -97,7 +97,7 @@ namespace WpfClient.ViewModels
                 case Role.Intern: view = new InternView(user); break;
                 default: view = new NotUpprovedView(); ; break;
             }
-            AppNavHelper.GetInstance().NavigationService.Navigate(view);
+            _appNavHelper.NavigationService.Navigate(view);
         }
 
         #endregion
@@ -112,7 +112,7 @@ namespace WpfClient.ViewModels
                     AppNavHelper.GetInstance().NavigationService.Navigate(new SignUpView());
                     ErrorMessage = null;
                     return;
-                }));
+                }, (obj) => _appNavHelper.CheckIfNoTasks()));
 
         #endregion
     }

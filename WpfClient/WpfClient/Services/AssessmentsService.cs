@@ -31,5 +31,18 @@ namespace WpfClient.Services
                 return rowsUpdated > 0;
             }
         }
+
+        public static async Task<bool> DeleteAssessmentAsync(int assessmentId)
+        {
+            using (DataBaseContext db = new DataBaseContext())
+            {
+                Assessment assessment = await db.Assessments.FindAsync(assessmentId);
+
+                db.Assessments.Remove(assessment);
+                int rowsUpdated = await db.SaveChangesAsync();
+
+                return rowsUpdated > 0;
+            }
+        }
     }
 }

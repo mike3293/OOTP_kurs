@@ -67,7 +67,7 @@ namespace WpfClient.ViewModels
                 {
                     User user = CreateDbUser();
                     _appNavHelper.IncrementTasksCounter();
-                    bool userUpdated = await Task.Run(() => UsersService.UpdateUser(user));
+                    bool userUpdated = await Task.Run(() => UsersService.UpdateUserAsync(user));
                     Internship internship = new Internship()
                     {
                         Intern = user.UserDetails,
@@ -109,7 +109,7 @@ namespace WpfClient.ViewModels
                 {
                     User user = CreateDbUser(Role.Manager);
                     _appNavHelper.IncrementTasksCounter();
-                    bool userUpdated = await Task.Run(() => UsersService.UpdateUser(user));
+                    bool userUpdated = await Task.Run(() => UsersService.UpdateUserAsync(user));
                     _appNavHelper.DecrementTasksCounter();
 
                     if (userUpdated)
@@ -128,7 +128,7 @@ namespace WpfClient.ViewModels
                 {
                     User user = CreateDbUser();
                     _appNavHelper.IncrementTasksCounter();
-                    bool userDeleted = await Task.Run(() => UsersService.DeleteUser(user));
+                    bool userDeleted = await Task.Run(() => UsersService.DeleteUserAsync(user));
                     _appNavHelper.DecrementTasksCounter();
 
                     if (userDeleted)

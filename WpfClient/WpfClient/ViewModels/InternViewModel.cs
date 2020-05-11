@@ -73,7 +73,9 @@ namespace WpfClient.ViewModels
         }
         #endregion
 
-        public Visibility CanManage => _appNavHelper.CurrentUser.Role == Role.Manager ? Visibility.Visible : Visibility.Hidden;
+        public bool CanManage => _appNavHelper.CurrentUser.Role == Role.Manager;
+
+        public bool CanFinish => Internship.IsCompleted != true && _appNavHelper.CurrentUser.Role == Role.Manager;
 
         #region UploadImageCommand
 
@@ -175,13 +177,16 @@ namespace WpfClient.ViewModels
                 (obj) =>
                 {
                     IsAddingAssessment = false;
+                    ClearAddingAssessment();
                 }));
 
         #endregion
 
         #region AddAssessmentCommand
 
-        private NewAssessment _newAssessment = new NewAssessment() { Date = DateTime.Today, Time = DateTime.Now };
+        private static Func<NewAssessment> CreateNewAssessment = () => new NewAssessment() { Date = DateTime.Today, Time = DateTime.Now };
+
+        private NewAssessment _newAssessment = CreateNewAssessment();
 
         public NewAssessment NewAssessment
         {
@@ -191,6 +196,11 @@ namespace WpfClient.ViewModels
                 _newAssessment = value;
                 OnPropertyChanged(nameof(NewAssessment));
             }
+        }
+
+        private void ClearAddingAssessment()
+        {
+            NewAssessment = CreateNewAssessment();
         }
 
         private AsyncCommandWithTimeout _addAssessmentCommand;
@@ -222,6 +232,96 @@ namespace WpfClient.ViewModels
                     if (assessmentAdded)
                     {
                         IsAddingAssessment = false;
+                        ClearAddingAssessment();
+                        _ = GetAssessments(_internId);
+                    }
+                }));
+
+        #endregion
+
+        #region DeleteAssessmentCommand
+
+        private AsyncCommandWithTimeout _deleteAssessmentCommand;
+
+        public IAsyncCommand DeleteAssessmentCommand => _deleteAssessmentCommand ?? (_deleteAssessmentCommand = new AsyncCommandWithTimeout(
+                async (obj) =>
+                {
+                    if (obj is Assessment assessment)
+                    {
+                        _appNavHelper.IncrementTasksCounter();
+                        bool assessmentDeleted = await AssessmentsService.DeleteAssessmentAsync(assessment.Id);
+                        _appNavHelper.DecrementTasksCounter();
+
+                        if (assessmentDeleted)
+                        {
+                            _ = GetAssessments(_internId);
+                        }
+                    }
+                }));
+
+        #endregion
+
+        #region EndInternshipCommand
+        private AsyncCommand _endInternshipCommand;
+
+        public IAsyncCommand EndInternshipCommand => _endInternshipCommand ?? (_endInternshipCommand = new AsyncCommand(
+                async (obj) =>
+                {
+                    _appNavHelper.IncrementTasksCounter();
+                    bool internshipUpdated = await Task.Run(() => InternshipsService.CompleteInternshipAsync(Internship.Id));
+                    _appNavHelper.DecrementTasksCounter();
+
+                    if (internshipUpdated)
+                    {
+                        _appNavHelper.NavigationService.Navigate(new ManagerView());
+                        return;
+                    }
+                }));
+        #endregion
+
+        #region EditEndDateCommand
+
+        public bool _isEditingEndDate;
+
+        public bool IsEditingEndDate
+        {
+            get => _isAddingAssessment;
+            set
+            {
+                _isAddingAssessment = value;
+                OnPropertyChanged(nameof(IsEditingEndDate));
+                OnPropertyChanged(nameof(IsNotEditingEndDate));
+            }
+        }
+
+        public bool IsNotEditingEndDate => !IsEditingEndDate;
+
+
+        private Command _editEndDateCommand;
+
+        public ICommand EditEndDateCommand => _editEndDateCommand ?? (_editEndDateCommand = new Command(
+                (obj) =>
+                {
+                    IsEditingEndDate = true;
+                }));
+
+        #endregion
+
+        #region SaveEndDateCommand
+
+        private AsyncCommand _saveEndDateCommand;
+
+        public IAsyncCommand SaveEndDateCommand => _saveEndDateCommand ?? (_saveEndDateCommand = new AsyncCommand(
+                async (obj) =>
+                {
+                    _appNavHelper.IncrementTasksCounter();
+                    bool internshipUpdated = await Task.Run(() => InternshipsService.UpdateInternshipEndDateAsync(Internship));
+                    _appNavHelper.DecrementTasksCounter();
+
+                    if (internshipUpdated)
+                    {
+                        IsEditingEndDate = false;
+                        _ = GetInternship(_internId);
                     }
                 }));
 

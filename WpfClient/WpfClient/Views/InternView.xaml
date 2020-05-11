@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:WpfClient.Views"
       xmlns:rules="clr-namespace:WpfClient.Validations"
       xmlns:imgConv="clr-namespace:WpfClient.Services"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       Title="InternView"
@@ -23,7 +24,7 @@
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="180"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Button Command="{Binding GoBackCommand}" Visibility="{Binding CanManage}" Background="Transparent" BorderThickness="0" VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Light">
@@ -43,7 +44,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Command="{Binding UploadImageCommand}" Visibility="{Binding CanManage}" Grid.Column="0" Grid.RowSpan="4" Height="Auto" Width="Auto" Background="Transparent" BorderThickness="0" Margin="0,0,20,0" >
+            <Button Command="{Binding UploadImageCommand}" Grid.Column="0" Grid.RowSpan="4" Height="Auto" Width="Auto" Background="Transparent" BorderThickness="0" Margin="0,0,20,0" >
                 <Ellipse Height="100" Width="100" Stroke="LightGray" StrokeThickness="2" Margin="-15, -3">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="{Binding Internship.Intern.Image, TargetNullValue={StaticResource DefaultImage}, UpdateSourceTrigger=PropertyChanged}"/>
@@ -56,10 +57,19 @@
             <TextBlock Text="End date:" Opacity="0.9" Grid.Column="1" Grid.Row="3"/>
             <TextBlock Text="{Binding Internship.Intern.FirstName}" FontWeight="Bold"  Grid.Column="2"/>
             <TextBlock Text="{Binding Internship.Intern.LastName}" FontWeight="Bold" Grid.Column="2" Grid.Row="1"/>
-            <TextBlock Text="{Binding Internship.EndDate, StringFormat=dd.MM.yyyy}" FontWeight="Bold" Grid.Column="2" Grid.Row="2"/>
-            <TextBlock Text="{Binding Internship.StartDate, StringFormat=dd.MM.yyyy}" FontWeight="Bold" Grid.Column="2" Grid.Row="3"/>
+            <TextBlock Text="{Binding Internship.StartDate, StringFormat=dd.MM.yyyy}" FontWeight="Bold" Grid.Column="2" Grid.Row="2"/>
+            <TextBlock Text="{Binding Internship.EndDate, StringFormat=dd.MM.yyyy}" Visibility="{Binding IsNotEditingEndDate, Converter={StaticResource VisibleIfTrueConverter}}" FontWeight="Bold" Grid.Column="2" Grid.Row="3"/>
+            <DatePicker SelectedDate="{Binding Internship.EndDate}" Visibility="{Binding IsEditingEndDate, Converter={StaticResource VisibleIfTrueConverter}}" Grid.Column="2" Grid.Row="3" Margin="-1,-7,0,0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectedDateChanged">
+                        <i:InvokeCommandAction Command="{Binding SaveEndDateCommand}" CommandParameter="{Binding SelectedIntern}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </DatePicker>
+            <Button Command="{Binding EditEndDateCommand}" Visibility="{Binding CanManage, Converter={StaticResource VisibleIfTrueConverter}}" HorizontalAlignment="Left" Content="Edit"  Grid.Column="3" Grid.Row="3" Margin="5,-11,0,-5" Padding="3,0" Height="20"/>
             <TextBlock Text="Click to change" Opacity="0.8" Grid.Column="0" Grid.Row="4"/>
-            <Button Command="{Binding GoToEditCommand}" Visibility="{Binding CanManage}" HorizontalAlignment="Left" Content="Edit"  Grid.Column="2" Grid.Row="4"/>
+            <Button Command="{Binding EndInternshipCommand}" Visibility="{Binding CanFinish, Converter={StaticResource VisibleIfTrueConverter}}" HorizontalAlignment="Left" Content="Finish internship" Background="DarkMagenta" Foreground="LightCyan" BorderThickness="0"  Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Padding="4,0" Height="20"/>
+            <TextBlock Text="Internship finished!" Visibility="{Binding Internship.IsCompleted, Converter={StaticResource VisibleIfTrueConverter}}" HorizontalAlignment="Left" Foreground="DarkGoldenrod" FontSize="17" FontWeight="Medium" Grid.Column="2" Grid.Row="4"/>
         </Grid>
         <Grid Grid.Row="1" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
@@ -72,17 +82,22 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
                 <TextBlock FontSize="20" Text="Assessments:" VerticalAlignment="Center"  Opacity="0.8" Grid.Row="0"/>
-                <Button Command="{Binding InitAddingAssessmentCommand}"  Visibility="{Binding CanManage}" BorderThickness="0" Background="Transparent" Foreground="LightBlue" FontWeight="Light" Margin="10,5,0,0">
+                <Button Command="{Binding InitAddingAssessmentCommand}"  Visibility="{Binding CanManage, Converter={StaticResource VisibleIfTrueConverter}}" BorderThickness="0" Background="Transparent" Foreground="LightBlue" FontWeight="Light" Margin="10,5,0,0">
                     <TextBlock Margin="-15, 0" Text="+Add"/>
                 </Button>
             </StackPanel>
-            <ListView SelectedItem="{Binding SelectedAssessment, Mode=OneWayToSource}" ItemsSource="{Binding Assessments}" IsSynchronizedWithCurrentItem="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1">
+            <ListView materialDesign:RippleAssist.IsDisabled="True" x:Name="AssessmentsList" ItemsSource="{Binding Assessments}" IsSynchronizedWithCurrentItem="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Date, StringFormat=dd.MM.yyyy}" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Location}" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Topic}" FontWeight="Bold"/>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Date, StringFormat=dd.MM.yyyy - HH:mm}" FontSize="15" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Location, StringFormat=Location: {0}}" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Topic, StringFormat=Topic: {0}}" FontWeight="Bold"/>
+                            </StackPanel>
+                            <Button CommandParameter="{Binding Path=.}" Command="{Binding ElementName=AssessmentsList, Path=DataContext.DeleteAssessmentCommand}" Visibility="{Binding ElementName=AssessmentsList, Path=DataContext.CanManage, Converter={StaticResource VisibleIfTrueConverter}}" BorderThickness="0" Width="30" Height="30" Padding="5,5" Background="Transparent" Margin="20,0,0,0">
+                                <Image Source="../Resources/Remove.png" />
+                            </Button>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

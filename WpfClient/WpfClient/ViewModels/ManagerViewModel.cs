@@ -82,7 +82,7 @@ namespace WpfClient.ViewModels
             _internships = internships.OrderBy(i => i.GetSearchData()).ToList();
             GetFilteredInternships();
 
-            IEnumerable<Internship> outdatedInternships = _internships.Where(i => i.EndDate > DateTime.Today);
+            IEnumerable<Internship> outdatedInternships = _internships.Where(i => i.EndDate < DateTime.Today);
             if (outdatedInternships.Count() > 0)
             {
                 foreach (Internship i in outdatedInternships)

@@ -27,11 +27,11 @@ namespace WpfClient.Services
             }
         }
 
-        public static bool CheckIfUserExistsByEmail(string email)
+        public static async Task<bool> CheckIfUserExistsByEmailAsync(string email)
         {
             using (DataBaseContext db = new DataBaseContext())
             {
-                return db.Users.Any(u => u.Email == email);
+                return await db.Users.AnyAsync(u => u.Email == email);
             }
         }
 
@@ -43,7 +43,7 @@ namespace WpfClient.Services
             }
         }
 
-        public static async Task<bool> UpdateUser(User user)
+        public static async Task<bool> UpdateUserAsync(User user)
         {
             using (DataBaseContext db = new DataBaseContext())
             {
@@ -60,7 +60,7 @@ namespace WpfClient.Services
             }
         }
 
-        public static async Task<bool> DeleteUser(User user)
+        public static async Task<bool> DeleteUserAsync(User user)
         {
             using (DataBaseContext db = new DataBaseContext())
             {

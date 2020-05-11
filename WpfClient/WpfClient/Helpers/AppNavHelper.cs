@@ -58,5 +58,13 @@ namespace WpfClient.Services
                 }
             }
         }
+
+        public bool CheckIfNoTasks()
+        {
+            lock (_locker)
+            {
+                return _taskCounter == 0;
+            }
+        }
     }
 }
