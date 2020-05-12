@@ -147,6 +147,7 @@
     <Compile Include="Validations\NotEmptyRule.cs" />
     <Compile Include="ViewModels\InternViewModel.cs" />
     <Compile Include="ViewModels\ManagerViewModel.cs" />
+    <Compile Include="ViewModels\NotUpprovedViewModel.cs" />
     <Compile Include="ViewModels\PendingUserViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />
     <Compile Include="ViewModels\AuthorizationViewModel.cs" />

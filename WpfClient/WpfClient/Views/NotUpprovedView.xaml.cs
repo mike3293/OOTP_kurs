@@ -12,17 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfClient.ViewModels;
 
 namespace WpfClient.Views
 {
-    /// <summary>
-    /// Логика взаимодействия для NotUpprovedView.xaml
-    /// </summary>
     public partial class NotUpprovedView : Page
     {
         public NotUpprovedView()
         {
             InitializeComponent();
+
+            DataContext = new NotUpprovedViewModel();
         }
     }
 }

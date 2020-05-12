@@ -122,7 +122,7 @@ namespace WpfClient.ViewModels
                         ErrorMessage = "User was not created";
                     }
                     _appNavHelper.DecrementTasksCounter();
-                }, (obj) => IsValid));
+                }, (obj) => IsValid && _appNavHelper.CheckIfNoTasks()));
 
         #endregion
 
@@ -135,7 +135,7 @@ namespace WpfClient.ViewModels
                 {
                     _appNavHelper.NavigationService.Navigate(new AuthorizationView());
                     ErrorMessage = null;
-                }));
+                }, (obj) => IsValid && _appNavHelper.CheckIfNoTasks()));
 
         #endregion
     }
