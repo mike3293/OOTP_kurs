@@ -80,6 +80,7 @@
       <HintPath>..\packages\System.Collections.Immutable.1.4.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Runtime.Serialization" />
@@ -119,22 +120,6 @@
     <Compile Include="DataBase\Models\User.cs" />
     <Compile Include="Helpers\ImageEncodingHelper.cs" />
     <Compile Include="Helpers\InternshipExtension.cs" />
-    <Compile Include="Migrations\202005091329493_RolesAdjustment.cs" />
-    <Compile Include="Migrations\202005091329493_RolesAdjustment.Designer.cs">
-      <DependentUpon>202005091329493_RolesAdjustment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005091334469_MakeRoleNullableAdjustment.cs" />
-    <Compile Include="Migrations\202005091334469_MakeRoleNullableAdjustment.Designer.cs">
-      <DependentUpon>202005091334469_MakeRoleNullableAdjustment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005101914469_AddStatusToInternship.cs" />
-    <Compile Include="Migrations\202005101914469_AddStatusToInternship.Designer.cs">
-      <DependentUpon>202005101914469_AddStatusToInternship.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005111318374_AddTimeToAssessment.cs" />
-    <Compile Include="Migrations\202005111318374_AddTimeToAssessment.Designer.cs">
-      <DependentUpon>202005111318374_AddTimeToAssessment.cs</DependentUpon>
-    </Compile>
     <Compile Include="Models\NewAssessment.cs" />
     <Compile Include="Models\PendingUser.cs" />
     <Compile Include="Models\UserSignUpCredentials.cs" />
@@ -143,6 +128,7 @@
     <Compile Include="Helpers\DisableKeysNavigation.cs" />
     <Compile Include="Services\InternshipsService.cs" />
     <Compile Include="Services\AssessmentsService.cs" />
+    <Compile Include="Services\MailsService.cs" />
     <Compile Include="Services\PeopleService.cs" />
     <Compile Include="Services\UsersService.cs" />
     <Compile Include="Validations\NotEmptyRule.cs" />
@@ -205,11 +191,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202005081624154_InitialCreate.cs" />
-    <Compile Include="Migrations\202005081624154_InitialCreate.Designer.cs">
-      <DependentUpon>202005081624154_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -223,21 +204,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\202005081624154_InitialCreate.resx">
-      <DependentUpon>202005081624154_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005091329493_RolesAdjustment.resx">
-      <DependentUpon>202005091329493_RolesAdjustment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005091334469_MakeRoleNullableAdjustment.resx">
-      <DependentUpon>202005091334469_MakeRoleNullableAdjustment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005101914469_AddStatusToInternship.resx">
-      <DependentUpon>202005101914469_AddStatusToInternship.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005111318374_AddTimeToAssessment.resx">
-      <DependentUpon>202005111318374_AddTimeToAssessment.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

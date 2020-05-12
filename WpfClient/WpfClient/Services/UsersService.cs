@@ -17,6 +17,14 @@ namespace WpfClient.Services
             }
         }
 
+        public static async Task<User> GetUserByPersonIdAsync(int personId)
+        {
+            using (DataBaseContext db = new DataBaseContext())
+            {
+                return await db.Users.Where(u => u.UserDetails.Id == personId).SingleOrDefaultAsync();
+            }
+        }
+
         public static async Task<bool> AddUserAsync(User user)
         {
             using (DataBaseContext db = new DataBaseContext())

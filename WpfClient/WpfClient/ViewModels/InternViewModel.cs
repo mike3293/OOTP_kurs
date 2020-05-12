@@ -232,20 +232,26 @@ namespace WpfClient.ViewModels
         #endregion
 
         #region EndInternshipCommand
-        private AsyncCommand _endInternshipCommand;
+        private AsyncCommandWithTimeout _endInternshipCommand;
 
-        public IAsyncCommand EndInternshipCommand => _endInternshipCommand ?? (_endInternshipCommand = new AsyncCommand(
+        public IAsyncCommand EndInternshipCommand => _endInternshipCommand ?? (_endInternshipCommand = new AsyncCommandWithTimeout(
                 async (obj) =>
                 {
                     _appNavHelper.IncrementTasksCounter();
                     bool internshipUpdated = await Task.Run(() => InternshipsService.CompleteInternshipAsync(Internship.Id));
-                    _appNavHelper.DecrementTasksCounter();
 
                     if (internshipUpdated)
                     {
+                        User user = await UsersService.GetUserByPersonIdAsync(Internship.Intern.Id);
+                        Person manager = _appNavHelper.CurrentUser.UserDetails;
+                        await MailsService.SendEmailAsync(
+                            user.Email,
+                            $"{manager.FirstName} {manager.LastName}",
+                            "The internship was completed"
+                        );
                         _appNavHelper.NavigationService.Navigate(new ManagerView());
-                        return;
                     }
+                    _appNavHelper.DecrementTasksCounter();
                 }));
         #endregion
 
@@ -279,9 +285,9 @@ namespace WpfClient.ViewModels
 
         #region SaveEndDateCommand
 
-        private AsyncCommand _saveEndDateCommand;
+        private AsyncCommandWithTimeout _saveEndDateCommand;
 
-        public IAsyncCommand SaveEndDateCommand => _saveEndDateCommand ?? (_saveEndDateCommand = new AsyncCommand(
+        public IAsyncCommand SaveEndDateCommand => _saveEndDateCommand ?? (_saveEndDateCommand = new AsyncCommandWithTimeout(
                 async (obj) =>
                 {
                     _appNavHelper.IncrementTasksCounter();
