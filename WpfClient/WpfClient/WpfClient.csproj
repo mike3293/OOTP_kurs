@@ -117,6 +117,7 @@
     <Compile Include="DataBase\Models\InternshipGoal.cs" />
     <Compile Include="DataBase\Models\Person.cs" />
     <Compile Include="DataBase\Models\User.cs" />
+    <Compile Include="Helpers\ImageEncodingHelper.cs" />
     <Compile Include="Helpers\InternshipExtension.cs" />
     <Compile Include="Migrations\202005091329493_RolesAdjustment.cs" />
     <Compile Include="Migrations\202005091329493_RolesAdjustment.Designer.cs">

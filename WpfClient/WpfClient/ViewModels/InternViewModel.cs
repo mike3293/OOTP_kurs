@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using WpfClient.Commands;
 using WpfClient.DataBase.Models;
+using WpfClient.Helpers;
 using WpfClient.Models;
 using WpfClient.Services;
 using WpfClient.Views;
@@ -84,14 +82,14 @@ namespace WpfClient.ViewModels
         public IAsyncCommand UploadImageCommand => _uploadImageCommand ?? (_uploadImageCommand = new AsyncCommand(
                 async (obj) =>
                 {
-                    string fileName = GetFileName();
+                    ImageEncodingHelper encoder = new ImageEncodingHelper();
+                    string fileName = encoder.GetFileName();
                     if (fileName == null)
                     {
                         return;
                     }
 
-                    BitmapSource bSource = new BitmapImage(new Uri(fileName));
-                    byte[] img = BitmapSourceToByteArray(bSource);
+                    byte[] img = encoder.PngImageToByteArray(fileName);
 
                     _appNavHelper.IncrementTasksCounter();
                     bool imgUpdated = await Task.Run(() => PeopleService.UpdatePersonImageAsync(Internship.Intern.Id, img));
@@ -103,34 +101,6 @@ namespace WpfClient.ViewModels
                         return;
                     }
                 }));
-        // TODO separate
-        private string GetFileName()
-        {
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog
-            {
-                DefaultExt = ".png",
-                Filter = "PNG Files (*.png)|*.png"
-            };
-
-            bool? result = dlg.ShowDialog();
-
-            if (result == true)
-            {
-                return dlg.FileName;
-            }
-            return null;
-        }
-
-        private byte[] BitmapSourceToByteArray(BitmapSource image)
-        {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                PngBitmapEncoder encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(image));
-                encoder.Save(stream);
-                return stream.ToArray();
-            }
-        }
         #endregion
 
         #region GoBackCommand
