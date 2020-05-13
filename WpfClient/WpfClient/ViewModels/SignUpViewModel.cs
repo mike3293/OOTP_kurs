@@ -135,7 +135,7 @@ namespace WpfClient.ViewModels
                 {
                     _appNavHelper.NavigationService.Navigate(new AuthorizationView());
                     ErrorMessage = null;
-                }, (obj) => IsValid && _appNavHelper.CheckIfNoTasks()));
+                }, (obj) => _appNavHelper.CheckIfNoTasks()));
 
         #endregion
     }

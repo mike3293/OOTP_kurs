@@ -57,8 +57,19 @@ namespace WpfClient.ViewModels
         }
 
         public string DisplayName => $"{FirstName} {LastName}";
+        
 
         #region AddInternCommand
+
+        private async Task NotifyByEmail(Person manager)
+        {
+            await MailsService.SendEmailAsync(
+                Email,
+                "Manager approved your account",
+                $"{manager.FirstName} {manager.LastName}",
+                $"<h3>Your account approved.</h3>"
+            );
+        }
 
         private AsyncCommandWithTimeout _addInternCommand;
 
@@ -68,21 +79,23 @@ namespace WpfClient.ViewModels
                     User user = CreateDbUser();
                     _appNavHelper.IncrementTasksCounter();
                     bool userUpdated = await Task.Run(() => UsersService.UpdateUserAsync(user));
+                    Person manager = _appNavHelper.CurrentUser.UserDetails;
                     Internship internship = new Internship()
                     {
                         Intern = user.UserDetails,
-                        Manager = _appNavHelper.CurrentUser.UserDetails,
+                        Manager = manager,
                         StartDate = DateTime.Today,
                         EndDate = DateTime.Today.AddDays(30)
                     };
                     await Task.Run(() => InternshipsService.AddInternshipAsync(internship));
-                    _appNavHelper.DecrementTasksCounter();
 
                     if (userUpdated)
                     {
+                        await Task.Run(() => NotifyByEmail(manager));
                         OnUpdated();
                     }
-                },obj => CheckIfValid()));
+                    _appNavHelper.DecrementTasksCounter();
+                }, obj => CheckIfValid()));
 
         private User CreateDbUser(Role role = Role.Intern)
         {
@@ -114,8 +127,10 @@ namespace WpfClient.ViewModels
 
                     if (userUpdated)
                     {
+                        await Task.Run(() => NotifyByEmail(_appNavHelper.CurrentUser.UserDetails));
                         OnUpdated();
                     }
+                    _appNavHelper.DecrementTasksCounter();
                 }, obj => CheckIfValid()));
         #endregion
 

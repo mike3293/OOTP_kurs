@@ -23,7 +23,5 @@ namespace WpfClient.DataBase.Models
         public DateTime EndDate { get; set; }
 
         public bool? IsCompleted { get; set; }
-
-        public virtual List<InternshipGoal> InternshipGoals { get; set; }
     }
 }

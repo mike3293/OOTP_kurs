@@ -8,7 +8,8 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="NotUpprovedView">
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-        <TextBlock  FontSize="25" FontWeight="Medium" Foreground="AntiqueWhite" Text="Your account is not yet upproved."/>
+        <TextBlock FontSize="25" FontWeight="Medium" Foreground="AntiqueWhite" Text="Your account is not yet upproved."/>
+        <TextBlock HorizontalAlignment="Center" FontSize="25" FontWeight="Medium" Foreground="AntiqueWhite" Text="Await email notification."/>
         <Button HorizontalAlignment="Center" Content="Go Back" Margin="0,20,0,0" Command="{Binding BackCommand}"/>
     </StackPanel>
 

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
+﻿using System.Configuration;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace WpfClient.Services
 {
     public class MailsService
     {
-        public static async Task SendEmailAsync(string emailTo, string displayName, string title, string htmlBody = "")
+        public static async Task SendEmailAsync(string emailTo, string title, string displayName, string htmlBody = "")
         {
             string login = ConfigurationManager.AppSettings["emailLogin"];
             string password = ConfigurationManager.AppSettings["emailPass"];

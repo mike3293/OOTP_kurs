@@ -115,11 +115,19 @@
     <Compile Include="Commands\IAsyncCommand.cs" />
     <Compile Include="DataBase\Models\Assessment.cs" />
     <Compile Include="DataBase\Models\Internship.cs" />
-    <Compile Include="DataBase\Models\InternshipGoal.cs" />
     <Compile Include="DataBase\Models\Person.cs" />
     <Compile Include="DataBase\Models\User.cs" />
     <Compile Include="Helpers\ImageEncodingHelper.cs" />
     <Compile Include="Helpers\InternshipExtension.cs" />
+    <Compile Include="Migrations\202005122015384_InitialCreate.cs" />
+    <Compile Include="Migrations\202005122015384_InitialCreate.Designer.cs">
+      <DependentUpon>202005122015384_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005131228208_DeleteGoals.cs" />
+    <Compile Include="Migrations\202005131228208_DeleteGoals.Designer.cs">
+      <DependentUpon>202005131228208_DeleteGoals.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NewAssessment.cs" />
     <Compile Include="Models\PendingUser.cs" />
     <Compile Include="Models\UserSignUpCredentials.cs" />
@@ -204,6 +212,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\202005122015384_InitialCreate.resx">
+      <DependentUpon>202005122015384_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005131228208_DeleteGoals.resx">
+      <DependentUpon>202005131228208_DeleteGoals.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

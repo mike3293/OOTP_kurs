@@ -244,11 +244,12 @@ namespace WpfClient.ViewModels
                     {
                         User user = await UsersService.GetUserByPersonIdAsync(Internship.Intern.Id);
                         Person manager = _appNavHelper.CurrentUser.UserDetails;
-                        await MailsService.SendEmailAsync(
+                        await Task.Run(() => MailsService.SendEmailAsync(
                             user.Email,
+                            "The internship was completed",
                             $"{manager.FirstName} {manager.LastName}",
-                            "The internship was completed"
-                        );
+                            $"<h3>Duration: {(DateTime.Today - Internship.StartDate).TotalDays} days</h3>"
+                        ));
                         _appNavHelper.NavigationService.Navigate(new ManagerView());
                     }
                     _appNavHelper.DecrementTasksCounter();
