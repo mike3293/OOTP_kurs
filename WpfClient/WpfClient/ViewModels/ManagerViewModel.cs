@@ -117,19 +117,6 @@ namespace WpfClient.ViewModels
         }
         #endregion
 
-        #region Validation
-        private bool _isValid = true;
-        public bool IsValid
-        {
-            get => _isValid;
-            set
-            {
-                _isValid = value;
-                OnPropertyChanged(nameof(IsValid));
-            }
-        }
-        #endregion
-
         #region ItemSelectedCommand
         private Command _itemSelectedCommand;
 

@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace WpfClient.ViewModels
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -11,5 +11,18 @@ namespace WpfClient.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #region Validation
+        private bool _isValid = true;
+        public bool IsValid
+        {
+            get => _isValid;
+            set
+            {
+                _isValid = value;
+                OnPropertyChanged(nameof(IsValid));
+            }
+        }
+        #endregion
     }
 }

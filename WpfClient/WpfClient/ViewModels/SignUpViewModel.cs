@@ -56,17 +56,6 @@ namespace WpfClient.ViewModels
         }
 
         #region Validation
-        private bool _isValid;
-        public bool IsValid
-        {
-            get => _isValid;
-            set
-            {
-                _isValid = value;
-                OnPropertyChanged(nameof(IsValid));
-            }
-        }
-
         private string _errorMessage;
         public string ErrorMessage
         {

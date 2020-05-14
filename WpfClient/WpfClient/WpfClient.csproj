@@ -141,6 +141,7 @@
     <Compile Include="Services\UsersService.cs" />
     <Compile Include="Validations\EmailRule.cs" />
     <Compile Include="Validations\NotEmptyRule.cs" />
+    <Compile Include="Validations\PageWithValidation.cs" />
     <Compile Include="ViewModels\InternViewModel.cs" />
     <Compile Include="ViewModels\ManagerViewModel.cs" />
     <Compile Include="ViewModels\NotUpprovedViewModel.cs" />
