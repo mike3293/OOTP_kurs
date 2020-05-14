@@ -199,11 +199,12 @@
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="WpfClient.Validations.NotEmptyRule" Collapsed="true">
+  <Class Name="WpfClient.Validations.EmailRule" Collapsed="true">
     <Position X="19.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Validations\NotEmptyRule.cs</FileName>
+      <HashCode>AAAAAAAAAACAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validations\EmailRule.cs</FileName>
+      <NewMemberFileName>Validations\NotEmptyRule.cs</NewMemberFileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.ViewModels.AuthorizationViewModel" Collapsed="true">

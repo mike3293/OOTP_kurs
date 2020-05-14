@@ -31,7 +31,7 @@
             <TextBox.Text>
                 <Binding Path="Email" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
-                        <rules:NotEmptyRule ValidatesOnTargetUpdated="True" />
+                        <rules:EmailRule ValidatesOnTargetUpdated="True" />
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
