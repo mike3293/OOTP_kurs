@@ -5,7 +5,7 @@ namespace WpfClient.DataBase
 {
     public class DataBaseContext : DbContext
     {
-        public DataBaseContext() : base()
+        public DataBaseContext()
         { }
 
         public DbSet<User> Users { get; set; }
