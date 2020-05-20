@@ -203,6 +203,18 @@ namespace WpfClient.ViewModels
                     {
                         IsAddingAssessment = false;
                         ClearAddingAssessment();
+
+                        _appNavHelper.IncrementTasksCounter();
+                        User user = await UsersService.GetUserByPersonIdAsync(Internship.Intern.Id);
+                        Person manager = _appNavHelper.CurrentUser.UserDetails;
+                        await Task.Run(() => MailsService.SendEmailAsync(
+                           user.Email,
+                           $"You have new assessment \"{assessment.Topic}\"",
+                           $"{manager.FirstName} {manager.LastName}",
+                           $"<h3>Date: {assessment.Date}</h3><br><h4>Location: {assessment.Location}</h4>"
+                       ));
+                        _appNavHelper.DecrementTasksCounter();
+
                         _ = GetAssessments(_internId);
                     }
                 }));

@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using WpfClient.Auth;
 
 namespace WpfClient.Services
 {
@@ -11,6 +12,8 @@ namespace WpfClient.Services
         {
             string login = ConfigurationManager.AppSettings["emailLogin"];
             string password = ConfigurationManager.AppSettings["emailPass"];
+
+            password = AesEncryption.DecryptString("b14ca5898a4e4133bbce2ea2315a1916", password);
 
             MailAddress from = new MailAddress(login, displayName);
             MailAddress to = new MailAddress(emailTo);

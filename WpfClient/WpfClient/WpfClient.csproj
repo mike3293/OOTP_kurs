@@ -110,6 +110,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Auth\AesEncryption.cs" />
     <Compile Include="Commands\AsyncCommand.cs" />
     <Compile Include="Commands\AsyncCommandWithTimeout.cs" />
     <Compile Include="Commands\IAsyncCommand.cs" />

@@ -1,21 +1,40 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace WpfClient.Auth
 {
-    internal class PasswordEncoder
+    public static class PasswordEncoder
     {
-        public static string GetHash(string password)
+        public static string GetHash(string password, string salt)
         {
-            using (SHA1Managed sha1 = new SHA1Managed())
-            {
-                byte[] hash = Encoding.UTF8.GetBytes(password);
-                byte[] generatedHash = sha1.ComputeHash(hash);
-                string generatedHashString = Convert.ToBase64String(generatedHash);
+            byte[] passwordAndSaltBytes = Concat(password, salt);
+            string hash = ComputeHash(passwordAndSaltBytes);
 
-                return generatedHashString;
+            return hash;
+        }
+
+        public static bool Verify(string hash, string salt, string password)
+        {
+            byte[] passwordAndSaltBytes = Concat(password, salt);
+            string hashAttempt = ComputeHash(passwordAndSaltBytes);
+            return hash == hashAttempt;
+        }
+
+        private static string ComputeHash(byte[] bytes)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                return Convert.ToBase64String(sha256.ComputeHash(bytes));
             }
+        }
+
+        private static byte[] Concat(string password, string salt)
+        {
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+            byte[] saltBytes = Encoding.UTF8.GetBytes(salt);
+            return passwordBytes.Concat(saltBytes).ToArray();
         }
     }
 }

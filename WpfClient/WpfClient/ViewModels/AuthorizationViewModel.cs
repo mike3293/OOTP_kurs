@@ -14,7 +14,7 @@ namespace WpfClient.ViewModels
     {
         private AppNavHelper _appNavHelper = AppNavHelper.GetInstance();
         // TODO: Delete init
-        public UserCredentials UserCredentials = new UserCredentials() { Email = "manager", Password="manager" };
+        public UserCredentials UserCredentials = new UserCredentials() { Email = "manager@gmail.com", Password = "manager@gmail.com" };
 
         public string Email
         {
@@ -56,15 +56,13 @@ namespace WpfClient.ViewModels
         public IAsyncCommand SignInCommand => _signInCommand ?? (_signInCommand = new AsyncCommandWithTimeout(
                 async (obj) =>
                 {
-                    string hashedPassword = PasswordEncoder.GetHash(Password);
-
                     _appNavHelper.IncrementTasksCounter();
                     User user = await Task.Run(() => UsersService.GetUserByEmailAsync(Email));
                     _appNavHelper.DecrementTasksCounter();
 
                     if (user != null)
                     {
-                        if (hashedPassword.Equals(user.HashedPassword))
+                        if (PasswordEncoder.Verify(user.HashedPassword, user.Email, Password))
                         {
                             _appNavHelper.CurrentUser = user;
                             NavigateByUserRole(user);

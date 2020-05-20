@@ -75,7 +75,7 @@ namespace WpfClient.ViewModels
         public IAsyncCommand SignUpCommand => _signUpCommand ?? (_signUpCommand = new AsyncCommandWithTimeout(
                 async (obj) =>
                 {
-                    string hashedPassword = PasswordEncoder.GetHash(Password);
+                    string hashedPassword = PasswordEncoder.GetHash(Password, Email);
 
                     _appNavHelper.IncrementTasksCounter();
                     bool emailExists = await Task.Run(() => UsersService.CheckIfUserExistsByEmailAsync(Email));
@@ -96,7 +96,7 @@ namespace WpfClient.ViewModels
                     User user = new User
                     {
                         Email = Email,
-                        HashedPassword = PasswordEncoder.GetHash(Password),
+                        HashedPassword = hashedPassword,
                         UserDetails = person,
                     };
 
