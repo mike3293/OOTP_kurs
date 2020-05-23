@@ -70,9 +70,9 @@ namespace WpfClient.ViewModels
 
         #region SignUpCommand
 
-        private AsyncCommandWithTimeout _signUpCommand;
+        private AsyncCommand _signUpCommand;
 
-        public IAsyncCommand SignUpCommand => _signUpCommand ?? (_signUpCommand = new AsyncCommandWithTimeout(
+        public IAsyncCommand SignUpCommand => _signUpCommand ?? (_signUpCommand = new AsyncCommand(
                 async (obj) =>
                 {
                     string hashedPassword = PasswordEncoder.GetHash(Password, Email);

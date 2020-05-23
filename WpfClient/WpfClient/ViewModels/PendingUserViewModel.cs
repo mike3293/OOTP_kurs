@@ -71,9 +71,9 @@ namespace WpfClient.ViewModels
             );
         }
 
-        private AsyncCommandWithTimeout _addInternCommand;
+        private AsyncCommand _addInternCommand;
 
-        public IAsyncCommand AddInternCommand => _addInternCommand ?? (_addInternCommand = new AsyncCommandWithTimeout(
+        public IAsyncCommand AddInternCommand => _addInternCommand ?? (_addInternCommand = new AsyncCommand(
                 async (obj) =>
                 {
                     User user = CreateDbUser();
@@ -115,9 +115,9 @@ namespace WpfClient.ViewModels
 
         #region AddManagerCommand
 
-        private AsyncCommandWithTimeout _addManagerCommand;
+        private AsyncCommand _addManagerCommand;
 
-        public IAsyncCommand AddManagerCommand => _addManagerCommand ?? (_addManagerCommand = new AsyncCommandWithTimeout(
+        public IAsyncCommand AddManagerCommand => _addManagerCommand ?? (_addManagerCommand = new AsyncCommand(
                 async (obj) =>
                 {
                     User user = CreateDbUser(Role.Manager);
@@ -136,9 +136,9 @@ namespace WpfClient.ViewModels
 
         #region RemoveCommand
 
-        private AsyncCommandWithTimeout _removeCommand;
+        private AsyncCommand _removeCommand;
 
-        public IAsyncCommand RemoveCommand => _removeCommand ?? (_removeCommand = new AsyncCommandWithTimeout(
+        public IAsyncCommand RemoveCommand => _removeCommand ?? (_removeCommand = new AsyncCommand(
                 async (obj) =>
                 {
                     User user = CreateDbUser();

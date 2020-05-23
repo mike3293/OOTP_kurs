@@ -173,9 +173,9 @@ namespace WpfClient.ViewModels
             NewAssessment = CreateNewAssessment();
         }
 
-        private AsyncCommandWithTimeout _addAssessmentCommand;
+        private AsyncCommand _addAssessmentCommand;
 
-        public IAsyncCommand AddAssessmentCommand => _addAssessmentCommand ?? (_addAssessmentCommand = new AsyncCommandWithTimeout(
+        public IAsyncCommand AddAssessmentCommand => _addAssessmentCommand ?? (_addAssessmentCommand = new AsyncCommand(
                 async (obj) =>
                 {
                     if (NewAssessment.Date == null)
@@ -222,9 +222,9 @@ namespace WpfClient.ViewModels
 
         #region DeleteAssessmentCommand
 
-        private AsyncCommandWithTimeout _deleteAssessmentCommand;
+        private AsyncCommand _deleteAssessmentCommand;
 
-        public IAsyncCommand DeleteAssessmentCommand => _deleteAssessmentCommand ?? (_deleteAssessmentCommand = new AsyncCommandWithTimeout(
+        public IAsyncCommand DeleteAssessmentCommand => _deleteAssessmentCommand ?? (_deleteAssessmentCommand = new AsyncCommand(
                 async (obj) =>
                 {
                     if (obj is Assessment assessment)
@@ -254,9 +254,9 @@ namespace WpfClient.ViewModels
         #endregion
 
         #region EndInternshipCommand
-        private AsyncCommandWithTimeout _endInternshipCommand;
+        private AsyncCommand _endInternshipCommand;
 
-        public IAsyncCommand EndInternshipCommand => _endInternshipCommand ?? (_endInternshipCommand = new AsyncCommandWithTimeout(
+        public IAsyncCommand EndInternshipCommand => _endInternshipCommand ?? (_endInternshipCommand = new AsyncCommand(
                 async (obj) =>
                 {
                     _appNavHelper.IncrementTasksCounter();
@@ -308,9 +308,9 @@ namespace WpfClient.ViewModels
 
         #region SaveEndDateCommand
 
-        private AsyncCommandWithTimeout _saveEndDateCommand;
+        private AsyncCommand _saveEndDateCommand;
 
-        public IAsyncCommand SaveEndDateCommand => _saveEndDateCommand ?? (_saveEndDateCommand = new AsyncCommandWithTimeout(
+        public IAsyncCommand SaveEndDateCommand => _saveEndDateCommand ?? (_saveEndDateCommand = new AsyncCommand(
                 async (obj) =>
                 {
                     _appNavHelper.IncrementTasksCounter();

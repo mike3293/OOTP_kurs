@@ -51,14 +51,12 @@ namespace WpfClient.ViewModels
 
         #region SignInCommand
 
-        private AsyncCommandWithTimeout _signInCommand;
+        private AsyncCommand _signInCommand;
 
-        public IAsyncCommand SignInCommand => _signInCommand ?? (_signInCommand = new AsyncCommandWithTimeout(
+        public IAsyncCommand SignInCommand => _signInCommand ?? (_signInCommand = new AsyncCommand(
                 async (obj) =>
                 {
-                    _appNavHelper.IncrementTasksCounter();
                     User user = await Task.Run(() => UsersService.GetUserByEmailAsync(Email));
-                    _appNavHelper.DecrementTasksCounter();
 
                     if (user != null)
                     {

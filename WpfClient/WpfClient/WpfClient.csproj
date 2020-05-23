@@ -112,7 +112,6 @@
     </ApplicationDefinition>
     <Compile Include="Auth\AesEncryption.cs" />
     <Compile Include="Commands\AsyncCommand.cs" />
-    <Compile Include="Commands\AsyncCommandWithTimeout.cs" />
     <Compile Include="Commands\IAsyncCommand.cs" />
     <Compile Include="DataBase\Models\Assessment.cs" />
     <Compile Include="DataBase\Models\Internship.cs" />

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using ToastNotifications.Messages;
 using WpfClient.Services;
 
 namespace WpfClient.Commands
@@ -31,7 +32,22 @@ namespace WpfClient.Commands
 
         public async void Execute(object parameter)
         {
-            await ExecuteAsync(parameter);
+            AppNavHelper appNavHelper = AppNavHelper.GetInstance();
+
+            try
+            {
+                appNavHelper.IncrementTasksCounter();
+
+                await ExecuteAsync(parameter);
+            }
+            catch (Exception e)
+            {
+                appNavHelper.Notifier.ShowError(e.Message);
+            }
+            finally
+            {
+                appNavHelper.DecrementTasksCounter();
+            }
         }
 
         public event EventHandler CanExecuteChanged

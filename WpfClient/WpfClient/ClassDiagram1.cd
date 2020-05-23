@@ -1,143 +1,135 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="WpfClient.App" Collapsed="true">
-    <Position X="12" Y="0.5" Width="1.5" />
+    <Position X="24.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>App.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Auth.PasswordEncoder" Collapsed="true">
-    <Position X="12" Y="4.5" Width="1.5" />
+    <Position X="10.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <HashCode>EAAAAAAAAAAAAQAAAAAAAAAAAAAAAAACAAAACAAAAAA=</HashCode>
       <FileName>Auth\PasswordEncoder.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Commands.AsyncCommand" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="19" Y="0.5" Width="1.5" />
+    <Position X="14" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAQAACAAQAAEAAAABAAAAAAAAAAAAAABAAAEA=</HashCode>
       <FileName>Commands\AsyncCommand.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="WpfClient.Commands.AsyncCommandWithTimeout" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="20.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAQAACAAQAAEAAAABAAAAAAAAAAAAAABAAAEA=</HashCode>
-      <FileName>Commands\AsyncCommandWithTimeout.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="WpfClient.Commands.Command" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="12" Y="1.5" Width="1.5" />
+    <Position X="15.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAACAAQAAEAEAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Commands\Command.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="WpfClient.DataBase.DataBaseContext" Collapsed="true">
-    <Position X="15.5" Y="1.5" Width="1.5" />
+    <Position X="10.25" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAACAAAIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>DataBase\DataBaseContext.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.DataBase.Models.Assessment" Collapsed="true">
-    <Position X="15.5" Y="0.5" Width="1.5" />
+    <Position X="10.25" Y="11.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAgIAAAAAAAAAAAABAAAAACAAAAA=</HashCode>
       <FileName>DataBase\Models\Assessment.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.DataBase.Models.Internship" Collapsed="true">
-    <Position X="15.5" Y="2.5" Width="1.5" />
+    <Position X="12" Y="11.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAEAAAAAAAAAAAAAAAAAgAAAABBAAAAAAAEAAAAA=</HashCode>
       <FileName>DataBase\Models\Internship.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.DataBase.Models.Person" Collapsed="true">
-    <Position X="17.25" Y="4.5" Width="1.5" />
+    <Position X="12" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAEAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAg=</HashCode>
       <FileName>DataBase\Models\Person.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.DataBase.Models.User" Collapsed="true">
-    <Position X="12" Y="5.5" Width="1.5" />
+    <Position X="10.25" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAACQAAAAAEAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DataBase\Models\User.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Services.AppNavHelper" Collapsed="true">
-    <Position X="13.75" Y="0.5" Width="1.5" />
+    <Position X="10.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAACIAAAACgAAIACAQABEAACAIAAAAAABAAABA=</HashCode>
       <FileName>Helpers\AppNavHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Services.AssessmentsService" Collapsed="true">
-    <Position X="17.25" Y="0.5" Width="1.5" />
+    <Position X="12" Y="7" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAABACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Services\AssessmentsService.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Services.InternshipsService" Collapsed="true">
-    <Position X="19" Y="2.5" Width="1.5" />
+    <Position X="13.75" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAACACQAAQAAAAAAA=</HashCode>
       <FileName>Services\InternshipsService.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Services.MailsService" Collapsed="true">
-    <Position X="12" Y="3.5" Width="1.5" />
+    <Position X="10.25" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>Services\MailsService.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Services.PeopleService" Collapsed="true">
-    <Position X="15.5" Y="4.5" Width="1.5" />
+    <Position X="10.25" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Services\PeopleService.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Services.UsersService" Collapsed="true">
-    <Position X="17.25" Y="5.5" Width="1.5" />
+    <Position X="12" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAEQBACA=</HashCode>
       <FileName>Services\UsersService.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Helpers.DisableNavigation" Collapsed="true">
-    <Position X="19" Y="1.5" Width="1.5" />
+    <Position X="1.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAQIAAAAAAAAAAAAAAAAAACAAAAAAIAAAA=</HashCode>
       <FileName>Helpers\DisableKeysNavigation.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Helpers.ImageEncodingHelper" Collapsed="true">
-    <Position X="12" Y="2.5" Width="1.5" />
+    <Position X="12" Y="3.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Helpers\ImageEncodingHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Helpers.InternshipExtension" Collapsed="true">
-    <Position X="17.25" Y="2.5" Width="1.5" />
+    <Position X="12" Y="4.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Helpers\InternshipExtension.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Migrations.InitialCreate" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="13.75" Y="2.5" Width="1.5" />
+    <Position X="26" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAIAMAAAAAAAAAAAAAAAAAAAAAAAAAAQEAAAAAI=</HashCode>
       <FileName>Migrations\202005122015384_InitialCreate.cs</FileName>
@@ -145,7 +137,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="WpfClient.Migrations.DeleteGoals" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="17.25" Y="1.5" Width="1.5" />
+    <Position X="26" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAIAMAAAAAAAAAAAAAAAAAAAAAAAAAAQEAAAAAI=</HashCode>
       <FileName>Migrations\202005131228208_DeleteGoals.cs</FileName>
@@ -153,110 +145,110 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="WpfClient.Migrations.Configuration" Collapsed="true">
-    <Position X="13.75" Y="1.5" Width="1.5" />
+    <Position X="26" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Migrations\Configuration.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Models.NewAssessment" Collapsed="true">
-    <Position X="15.5" Y="3.5" Width="1.5" />
+    <Position X="2.25" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAAAACAAAQA=</HashCode>
       <FileName>Models\NewAssessment.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Models.PendingUser" Collapsed="true">
-    <Position X="13.75" Y="4.5" Width="1.5" />
+    <Position X="4" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAEAAACAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>Models\PendingUser.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Models.UserCredentials" Collapsed="true">
-    <Position X="13.75" Y="5.5" Width="1.5" />
+    <Position X="5.75" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>Models\UserCredentials.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Models.UserSignUpCredentials" Collapsed="true">
-    <Position X="15.5" Y="5.5" Width="1.5" />
+    <Position X="3.75" Y="11.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAg=</HashCode>
       <FileName>Models\UserSignUpCredentials.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Properties.Resources" Collapsed="true">
-    <Position X="19" Y="4.5" Width="1.5" />
+    <Position X="24.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Properties.Settings" Collapsed="true">
-    <Position X="20.75" Y="4.5" Width="1.5" />
+    <Position X="24.25" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Validations.EmailRule" Collapsed="true">
-    <Position X="20.75" Y="1.5" Width="1.5" />
+    <Position X="10.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Validations\EmailRule.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Validations.NotEmptyRule" Collapsed="true">
-    <Position X="17.25" Y="3.5" Width="1.5" />
+    <Position X="10.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Validations\NotEmptyRule.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.Validations.PageWithValidation" Collapsed="true">
-    <Position X="2.75" Y="3.5" Width="1.5" />
+    <Position X="3.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAEEQAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>Validations\PageWithValidation.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WpfClient.ViewModels.AuthorizationViewModel">
-    <Position X="7.25" Y="1.75" Width="1.5" />
+  <Class Name="WpfClient.ViewModels.AuthorizationViewModel" Collapsed="true">
+    <Position X="6.25" Y="3" Width="2" />
     <TypeIdentifier>
       <HashCode>QQAAACAAACAAAAAAAABAAQAMgAAAAAACAAAAABAAAAA=</HashCode>
       <FileName>ViewModels\AuthorizationViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.ViewModels.InternViewModel" Collapsed="true">
-    <Position X="9" Y="1.75" Width="2.75" />
+    <Position X="6.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAgQAAAAMoADABAAKgAgAAMgQCARBYCgBACAABCEAAA=</HashCode>
       <FileName>ViewModels\InternViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.ViewModels.ManagerViewModel" Collapsed="true">
-    <Position X="0.5" Y="1.75" Width="1.5" />
+    <Position X="3.25" Y="1.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>KEAAAACAAACCAAAAAAABAAAEIAAAACAIgAAACBAEBAg=</HashCode>
       <FileName>ViewModels\ManagerViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.ViewModels.NotUpprovedViewModel" Collapsed="true">
-    <Position X="20.75" Y="3.5" Width="1.5" />
+    <Position X="7" Y="0.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\NotUpprovedViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.ViewModels.PendingUserViewModel" Collapsed="true">
-    <Position X="2.75" Y="1.75" Width="1.5" />
+    <Position X="3.25" Y="3" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAkEABACSAFAAAAAAAAAAAIgAgAAAAEAAAABEAAAg=</HashCode>
       <FileName>ViewModels\PendingUserViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfClient.ViewModels.SignUpViewModel" Collapsed="true">
-    <Position X="5" Y="1.75" Width="1.5" />
+    <Position X="4.75" Y="4" Width="2" />
     <TypeIdentifier>
       <HashCode>AQAAAGAAACAACAAAAAAAAQAMAAAAAABCAAAAABAAAAg=</HashCode>
       <FileName>ViewModels\SignUpViewModel.cs</FileName>
@@ -271,7 +263,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="WpfClient.Views.AuthorizationView" Collapsed="true">
-    <Position X="5" Y="5" Width="1.5" />
+    <Position X="5.75" Y="7" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Views\AuthorizationView.xaml.cs</FileName>
@@ -279,7 +271,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="WpfClient.Views.InternView" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="20.75" Y="2.5" Width="1.5" />
+    <Position X="2.5" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Views\InternView.xaml.cs</FileName>
@@ -287,15 +279,15 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="WpfClient.Views.MainWindowView" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="13.75" Y="3.5" Width="1.5" />
+    <Position X="5.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
       <FileName>Views\MainWindowView.xaml.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="WpfClient.Views.ManagerView" Collapsed="true">
-    <Position X="0.5" Y="5" Width="1.5" />
+    <Position X="1.25" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Views\ManagerView.xaml.cs</FileName>
@@ -303,7 +295,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="WpfClient.Views.NotUpprovedView" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="19" Y="3.5" Width="1.5" />
+    <Position X="4.25" Y="8.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Views\NotUpprovedView.xaml.cs</FileName>
@@ -311,7 +303,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="WpfClient.Views.SignUpView" Collapsed="true">
-    <Position X="2.75" Y="5" Width="1.5" />
+    <Position X="3.5" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Views\SignUpView.xaml.cs</FileName>
@@ -319,14 +311,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Interface Name="WpfClient.Commands.IAsyncCommand" Collapsed="true">
-    <Position X="12" Y="6.75" Width="1.5" />
+    <Position X="14" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>Commands\IAsyncCommand.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="Role" Collapsed="true">
-    <Position X="12" Y="7.75" Width="1.5" />
+    <Position X="8.5" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
       <FileName>DataBase\Models\User.cs</FileName>
