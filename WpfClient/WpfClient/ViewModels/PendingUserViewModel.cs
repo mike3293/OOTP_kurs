@@ -77,7 +77,6 @@ namespace WpfClient.ViewModels
                 async (obj) =>
                 {
                     User user = CreateDbUser();
-                    _appNavHelper.IncrementTasksCounter();
                     bool userUpdated = await Task.Run(() => UsersService.UpdateUserAsync(user));
                     Person manager = _appNavHelper.CurrentUser.UserDetails;
                     Internship internship = new Internship()
@@ -94,7 +93,6 @@ namespace WpfClient.ViewModels
                         await Task.Run(() => NotifyByEmail(manager));
                         OnUpdated();
                     }
-                    _appNavHelper.DecrementTasksCounter();
                 }, obj => CheckIfValid()));
 
         private User CreateDbUser(Role role = Role.Intern)
@@ -121,16 +119,13 @@ namespace WpfClient.ViewModels
                 async (obj) =>
                 {
                     User user = CreateDbUser(Role.Manager);
-                    _appNavHelper.IncrementTasksCounter();
                     bool userUpdated = await Task.Run(() => UsersService.UpdateUserAsync(user));
-                    _appNavHelper.DecrementTasksCounter();
 
                     if (userUpdated)
                     {
                         await Task.Run(() => NotifyByEmail(_appNavHelper.CurrentUser.UserDetails));
                         OnUpdated();
                     }
-                    _appNavHelper.DecrementTasksCounter();
                 }, obj => CheckIfValid()));
         #endregion
 
@@ -142,9 +137,7 @@ namespace WpfClient.ViewModels
                 async (obj) =>
                 {
                     User user = CreateDbUser();
-                    _appNavHelper.IncrementTasksCounter();
                     bool userDeleted = await Task.Run(() => UsersService.DeleteUserAsync(user));
-                    _appNavHelper.DecrementTasksCounter();
 
                     if (userDeleted)
                     {

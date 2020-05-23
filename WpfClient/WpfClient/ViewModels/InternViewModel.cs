@@ -91,9 +91,7 @@ namespace WpfClient.ViewModels
 
                     byte[] img = encoder.PngImageToByteArray(fileName);
 
-                    _appNavHelper.IncrementTasksCounter();
                     bool imgUpdated = await Task.Run(() => PeopleService.UpdatePersonImageAsync(Internship.Intern.Id, img));
-                    _appNavHelper.DecrementTasksCounter();
 
                     if (imgUpdated)
                     {
@@ -195,9 +193,7 @@ namespace WpfClient.ViewModels
                         Internship = Internship,
                     };
 
-                    _appNavHelper.IncrementTasksCounter();
                     bool assessmentAdded = await AssessmentsService.AddAssessmentAsync(assessment);
-                    _appNavHelper.DecrementTasksCounter();
 
                     if (assessmentAdded)
                     {
@@ -205,7 +201,6 @@ namespace WpfClient.ViewModels
                         ClearAddingAssessment();
                         _ = GetAssessments(_internId);
 
-                        _appNavHelper.IncrementTasksCounter();
                         User user = await UsersService.GetUserByPersonIdAsync(Internship.Intern.Id);
                         Person manager = _appNavHelper.CurrentUser.UserDetails;
                         await Task.Run(() => MailsService.SendEmailAsync(
@@ -214,7 +209,6 @@ namespace WpfClient.ViewModels
                            $"{manager.FirstName} {manager.LastName}",
                            $"<h3>Date: {assessment.Date}</h3><br><h4>Location: {assessment.Location}</h4>"
                        ));
-                        _appNavHelper.DecrementTasksCounter();
                     }
                 }));
 
@@ -229,15 +223,12 @@ namespace WpfClient.ViewModels
                 {
                     if (obj is Assessment assessment)
                     {
-                        _appNavHelper.IncrementTasksCounter();
                         bool assessmentDeleted = await AssessmentsService.DeleteAssessmentAsync(assessment.Id);
-                        _appNavHelper.DecrementTasksCounter();
 
                         if (assessmentDeleted)
                         {
                             _ = GetAssessments(_internId);
 
-                            _appNavHelper.IncrementTasksCounter();
                             User user = await UsersService.GetUserByPersonIdAsync(Internship.Intern.Id);
                             Person manager = _appNavHelper.CurrentUser.UserDetails;
                             await Task.Run(() => MailsService.SendEmailAsync(
@@ -246,7 +237,6 @@ namespace WpfClient.ViewModels
                                $"{manager.FirstName} {manager.LastName}",
                                $"<h3>Date: {assessment.Date}</h3><br><h4>Location: {assessment.Location}</h4>"
                            ));
-                            _appNavHelper.DecrementTasksCounter();
                         }
                     }
                 }));
@@ -259,7 +249,6 @@ namespace WpfClient.ViewModels
         public IAsyncCommand EndInternshipCommand => _endInternshipCommand ?? (_endInternshipCommand = new AsyncCommand(
                 async (obj) =>
                 {
-                    _appNavHelper.IncrementTasksCounter();
                     bool internshipUpdated = await Task.Run(() => InternshipsService.CompleteInternshipAsync(Internship.Id));
 
                     if (internshipUpdated)
@@ -274,7 +263,6 @@ namespace WpfClient.ViewModels
                         ));
                         _appNavHelper.NavigationService.Navigate(new ManagerView());
                     }
-                    _appNavHelper.DecrementTasksCounter();
                 }));
         #endregion
 
@@ -313,9 +301,7 @@ namespace WpfClient.ViewModels
         public IAsyncCommand SaveEndDateCommand => _saveEndDateCommand ?? (_saveEndDateCommand = new AsyncCommand(
                 async (obj) =>
                 {
-                    _appNavHelper.IncrementTasksCounter();
                     bool internshipUpdated = await Task.Run(() => InternshipsService.UpdateInternshipEndDateAsync(Internship));
-                    _appNavHelper.DecrementTasksCounter();
 
                     if (internshipUpdated)
                     {

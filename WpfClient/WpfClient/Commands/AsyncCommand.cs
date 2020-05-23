@@ -1,8 +1,5 @@
-﻿using Nito.AsyncEx;
-using System;
-using System.Threading;
+﻿using System;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using ToastNotifications.Messages;
 using WpfClient.Services;
@@ -11,6 +8,7 @@ namespace WpfClient.Commands
 {
     internal class AsyncCommand : IAsyncCommand
     {
+        private AppNavHelper _appNavHelper = AppNavHelper.GetInstance();
         private readonly Func<object, Task> _command;
         private Func<object, bool> canExecute;
 
@@ -32,21 +30,19 @@ namespace WpfClient.Commands
 
         public async void Execute(object parameter)
         {
-            AppNavHelper appNavHelper = AppNavHelper.GetInstance();
-
             try
             {
-                appNavHelper.IncrementTasksCounter();
+                _appNavHelper.IncrementTasksCounter();
 
                 await ExecuteAsync(parameter);
             }
             catch (Exception e)
             {
-                appNavHelper.Notifier.ShowError(e.Message);
+                _appNavHelper.Notifier.ShowError(e.Message);
             }
             finally
             {
-                appNavHelper.DecrementTasksCounter();
+                _appNavHelper.DecrementTasksCounter();
             }
         }
 

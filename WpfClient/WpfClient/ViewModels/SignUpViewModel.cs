@@ -77,13 +77,11 @@ namespace WpfClient.ViewModels
                 {
                     string hashedPassword = PasswordEncoder.GetHash(Password, Email);
 
-                    _appNavHelper.IncrementTasksCounter();
                     bool emailExists = await Task.Run(() => UsersService.CheckIfUserExistsByEmailAsync(Email));
 
                     if (emailExists)
                     {
                         ErrorMessage = "Email already registered";
-                        _appNavHelper.DecrementTasksCounter();
                         return;
                     }
 
@@ -110,7 +108,6 @@ namespace WpfClient.ViewModels
                     {
                         ErrorMessage = "User was not created";
                     }
-                    _appNavHelper.DecrementTasksCounter();
                 }, (obj) => IsValid && _appNavHelper.CheckIfNoTasks()));
 
         #endregion
