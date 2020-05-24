@@ -6,7 +6,7 @@
         xmlns:help="clr-namespace:WpfClient.Helpers"
         xmlns:local="clr-namespace:WpfClient.Views"
         mc:Ignorable="d"
-        Title="Internships" Height="450" Width="800"
+        Title="Internships" Height="450" Width="850"
         Icon="../Resources/Icon.png"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"

@@ -272,10 +272,10 @@ namespace WpfClient.ViewModels
 
         public bool IsEditingEndDate
         {
-            get => _isAddingAssessment;
+            get => _isEditingEndDate;
             set
             {
-                _isAddingAssessment = value;
+                _isEditingEndDate = value;
                 OnPropertyChanged(nameof(IsEditingEndDate));
                 OnPropertyChanged(nameof(IsNotEditingEndDate));
             }

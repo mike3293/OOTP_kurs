@@ -45,7 +45,14 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Button Command="{Binding SignInCommand}" Content="Sign In" HorizontalAlignment="Left" VerticalAlignment="Center" Width="82" Grid.Row="2" Grid.Column="0"/>
+        <Button
+            Command="{Binding SignInCommand}" 
+            Content="Sign In"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Width="82" Grid.Row="2"
+            Grid.Column="0"
+        />
         <Button Command="{Binding SignUpCommand}" Content="Sign Up" HorizontalAlignment="Right" VerticalAlignment="Center" Width="82" Grid.Row="2" Grid.Column="1"/>
         <TextBlock Text="{Binding ErrorMessage}" DockPanel.Dock="Bottom" Foreground="Red"  Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>

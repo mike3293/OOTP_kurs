@@ -9,8 +9,6 @@ namespace WpfClient.Services
     {
         private static readonly Lazy<AppNavHelper> lazy = new Lazy<AppNavHelper>(() => new AppNavHelper());
 
-        public string Name { get; private set; }
-
         private AppNavHelper()
         {
         }

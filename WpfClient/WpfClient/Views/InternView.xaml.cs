@@ -17,9 +17,6 @@ using WpfClient.ViewModels;
 
 namespace WpfClient.Views
 {
-    /// <summary>
-    /// Логика взаимодействия для InternView.xaml
-    /// </summary>
     public partial class InternView : Page
     {
         public InternView(Internship internship)

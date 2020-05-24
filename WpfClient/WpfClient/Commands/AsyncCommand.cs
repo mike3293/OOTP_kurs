@@ -6,7 +6,7 @@ using WpfClient.Services;
 
 namespace WpfClient.Commands
 {
-    internal class AsyncCommand : IAsyncCommand
+    public class AsyncCommand : IAsyncCommand
     {
         private AppNavHelper _appNavHelper = AppNavHelper.GetInstance();
         private readonly Func<object, Task> _command;
