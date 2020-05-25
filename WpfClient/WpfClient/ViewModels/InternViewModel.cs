@@ -210,7 +210,7 @@ namespace WpfClient.ViewModels
                            $"<h3>Date: {assessment.Date}</h3><br><h4>Location: {assessment.Location}</h4>"
                        ));
                     }
-                }));
+                }, (obj) => _appNavHelper.CheckIfNoTasks()));
 
         #endregion
 
@@ -249,6 +249,8 @@ namespace WpfClient.ViewModels
         public IAsyncCommand EndInternshipCommand => _endInternshipCommand ?? (_endInternshipCommand = new AsyncCommand(
                 async (obj) =>
                 {
+                    Internship.EndDate = DateTime.Today;
+                    await Task.Run(() => InternshipsService.UpdateInternshipEndDateAsync(Internship));
                     bool internshipUpdated = await Task.Run(() => InternshipsService.CompleteInternshipAsync(Internship.Id));
 
                     if (internshipUpdated)

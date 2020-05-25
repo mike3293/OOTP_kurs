@@ -13,8 +13,8 @@ namespace WpfClient.ViewModels
     public class AuthorizationViewModel : ViewModelBase
     {
         private AppNavHelper _appNavHelper = AppNavHelper.GetInstance();
-        // TODO: Delete init
-        public UserCredentials UserCredentials = new UserCredentials() { Email = "manager@gmail.com", Password = "manager@gmail.com" };
+
+        public UserCredentials UserCredentials = new UserCredentials();
 
         public string Email
         {

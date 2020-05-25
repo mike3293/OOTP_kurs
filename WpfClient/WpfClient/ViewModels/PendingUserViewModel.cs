@@ -93,7 +93,7 @@ namespace WpfClient.ViewModels
                         await Task.Run(() => NotifyByEmail(manager));
                         OnUpdated();
                     }
-                }, obj => CheckIfValid()));
+                }, obj => CheckIfValid() && _appNavHelper.CheckIfNoTasks()));
 
         private User CreateDbUser(Role role = Role.Intern)
         {
@@ -126,7 +126,7 @@ namespace WpfClient.ViewModels
                         await Task.Run(() => NotifyByEmail(_appNavHelper.CurrentUser.UserDetails));
                         OnUpdated();
                     }
-                }, obj => CheckIfValid()));
+                }, obj => CheckIfValid() && _appNavHelper.CheckIfNoTasks()));
         #endregion
 
         #region RemoveCommand
@@ -143,7 +143,7 @@ namespace WpfClient.ViewModels
                     {
                         OnUpdated();
                     }
-                }));
+                }, (obj) => _appNavHelper.CheckIfNoTasks()));
         #endregion
     }
 }
